@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using MySql.Data.MySqlClient;
@@ -12,8 +11,7 @@ namespace DatabaseAccess
     public class FoxyFaceDB : IDisposable
     {
         private readonly MySqlConnection connection;
-        public string ConnectionString { get; private set; }
-
+        
         public FoxyFaceDB(string connectionString)
         {
             connection = new MySqlConnection(connectionString);

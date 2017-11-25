@@ -6,10 +6,10 @@ namespace DatabaseAccess.Model
     public class Comment
     {
         public int Id { get; }
-        public Post Post { get; set; }
-        public User User { get; set; }
+        public Post Post { get; }
+        public User User { get; }
         public string Text { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; }
 
         public Comment(int id, Post post, User user, string text, DateTime date = new DateTime())
         {
@@ -20,10 +20,7 @@ namespace DatabaseAccess.Model
             Date = date;
         }
 
-        public override string ToString()
-        {
-            return $"{nameof(Id)}: {Id}, {nameof(Post)}: {Post}, {nameof(User)}: {User}, {nameof(Text)}: {Text}, {nameof(Date)}: {Date}";
-        }
+        public override string ToString() => $"{nameof(Id)}: {Id}, {nameof(Post)}: {Post}, {nameof(User)}: {User}, {nameof(Text)}: {Text}, {nameof(Date)}: {Date}";
 
         protected bool Equals(Comment other)
         {
