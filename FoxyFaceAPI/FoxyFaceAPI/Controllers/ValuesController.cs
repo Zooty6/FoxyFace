@@ -20,7 +20,7 @@ namespace FoxyFaceAPI.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return id == 42 ? "OwO" : "OvO";
         }
 
         // POST api/values
