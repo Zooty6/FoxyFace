@@ -33,7 +33,7 @@ namespace DatabaseAccess
             PostRepository = new PostRepository(FoxyFaceDb);
         }
 
-        public static void Initialize(string connectionString)
+        public static FoxyFaceDbManager Initialize(string connectionString)
         {
             if (instance != null)
                 throw new ArgumentException("Instance was already created");
