@@ -5,11 +5,11 @@ namespace DatabaseAccess
 {
     public class FoxyFaceDbManager
     {
-        private FoxyFaceDB foxyFaceDb;
-        public  UserRepository UserRepository{ get; }
-        public  RatingRepository RatingRepository{ get; }
-        public CommentRepository CommentRepository{ get; }
-        public PostRepository PostRepository{ get; }
+        public FoxyFaceDB FoxyFaceDb { get; }
+        public UserRepository UserRepository { get; }
+        public RatingRepository RatingRepository { get; }
+        public CommentRepository CommentRepository { get; }
+        public PostRepository PostRepository { get; }
 
         private static FoxyFaceDbManager instance;
 
@@ -26,19 +26,19 @@ namespace DatabaseAccess
 
         private FoxyFaceDbManager(string connectionString)
         {
-            foxyFaceDb = new FoxyFaceDB(connectionString);
-            UserRepository = new UserRepository(foxyFaceDb);
-            RatingRepository = new RatingRepository(foxyFaceDb);
-            CommentRepository = new CommentRepository(foxyFaceDb);
-            PostRepository = new PostRepository(foxyFaceDb);
+            FoxyFaceDb = new FoxyFaceDB(connectionString);
+            UserRepository = new UserRepository(FoxyFaceDb);
+            RatingRepository = new RatingRepository(FoxyFaceDb);
+            CommentRepository = new CommentRepository(FoxyFaceDb);
+            PostRepository = new PostRepository(FoxyFaceDb);
         }
 
         public static FoxyFaceDbManager Initialize(string connectionString)
         {
             if (instance != null)
                 throw new ArgumentException("Instance was already created");
-            
-            instance = new FoxyFaceDbManager(connectionString);
+
+            return instance = new FoxyFaceDbManager(connectionString);
         }
     }
 }
