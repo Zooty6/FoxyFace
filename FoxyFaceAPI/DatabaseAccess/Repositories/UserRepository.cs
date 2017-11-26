@@ -18,7 +18,7 @@ namespace DatabaseAccess.Repositories
             FoxyFaceDb.ExecuteNonQuery("UPDATE user SET password = @password, salt = @salt WHERE id = @id", new MySqlParameter("password", Convert.ToBase64String(encodedPassword)), new MySqlParameter("salt", Convert.ToBase64String(generatedSalt)), new MySqlParameter("id", id));
         }
 
-        public void Save(User user)
+        public void Create(User user)
         {
             MySqlParameter[] parameters = {new MySqlParameter("name", user.Username), new MySqlParameter("password", user.Password), new MySqlParameter("email", user.Email) ,new MySqlParameter("salt", user.Salt)};
             FoxyFaceDb.ExecuteNonQuery("INSERT INTO user VALUES(@name, @password, @email, @salt)", parameters);

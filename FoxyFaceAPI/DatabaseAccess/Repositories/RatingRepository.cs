@@ -17,7 +17,7 @@ namespace DatabaseAccess.Repositories
                 new MySqlParameter("pid", rating.Post.Value.Id), new MySqlParameter("uid", rating.User.Value.Id), new MySqlParameter("stars", rating.Stars));
         }
 
-        public List<Rating> GetRating(int postId)
+        public List<Rating> FindById(int postId)
         {
             Post post = null;
             List<User> users = new List<User>();
@@ -26,7 +26,7 @@ namespace DatabaseAccess.Repositories
                 "SELECT * FROM rating WHERE rating.Post_id = @pid",
                 new MySqlParameter("pid", postId));
             if (executeReader.Rows.Count != 0)
-                post = PostRepository.getPost((int)executeReader.Rows[0]["post_id"]);
+                post = PostRepository.FindById((int)executeReader.Rows[0]["post_id"]);
             
             //TODO laizy load users
             foreach (DataRow row in executeReader.Rows)

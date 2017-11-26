@@ -12,8 +12,8 @@ namespace DatabaseAccess.Model
         public DateTime Date { get; }
 
         public Comment(int id, int postId, int userId, string text, DateTime date = new DateTime())
-            : this(id, new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.GetPost(postId)),
-                new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.GetUser(userId)), text, date)
+            : this(id, new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
+                new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), text, date)
         {
         }
 
