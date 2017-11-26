@@ -5,13 +5,20 @@ namespace DatabaseAccess.Model
     public class Post
     {
         public int Id { get; }
-        public int User { get; }
+        public Lazy<User> User { get; }
         public string Title { get; }
         public string Description { get; set; }
         public string Path { get; }
         public DateTime Date { get; }
 
-        public Post(int id, int user, string title, string description, string path, DateTime date = new DateTime())
+        public Post(int id, int userId, string title, string description, string path, DateTime date = new DateTime())
+            : this(id, new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), title,
+                description, path, date)
+        {
+        }
+
+        public Post(int id, Lazy<User> user, string title, string description, string path,
+            DateTime date = new DateTime())
         {
             Id = id;
             User = user;
@@ -19,6 +26,11 @@ namespace DatabaseAccess.Model
             Description = description ?? throw new ArgumentNullException(nameof(description));
             Path = path ?? throw new ArgumentNullException(nameof(path));
             Date = date;
+        }
+
+        public Post(int id, User user, string title, string description, string path, DateTime date = new DateTime())
+            : this(id, new Lazy<User>(() => user), title, description, path, date)
+        {
         }
 
         protected bool Equals(Post other)
@@ -41,7 +53,8 @@ namespace DatabaseAccess.Model
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id}, {nameof(User)}: {User}, {nameof(Title)}: {Title}, {nameof(Description)}: {Description}, {nameof(Path)}: {Path}, {nameof(Date)}: {Date}";
+            return
+                $"{nameof(Id)}: {Id}, {nameof(User)}: {User}, {nameof(Title)}: {Title}, {nameof(Description)}: {Description}, {nameof(Path)}: {Path}, {nameof(Date)}: {Date}";
         }
     }
 }
