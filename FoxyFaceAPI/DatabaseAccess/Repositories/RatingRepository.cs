@@ -14,20 +14,17 @@ namespace DatabaseAccess.Repositories
         public void Create(Rating rating)
         {
             FoxyFaceDb.ExecuteNonQuery("INSERT INTO rating VALUES(post_id = @pid, user_id = @uid, stars = @stars)", 
-                new MySqlParameter("pid", rating.Post.Id), new MySqlParameter("uid", rating.User.Id), new MySqlParameter("stars", rating.Stars));
+                new MySqlParameter("pid", rating.Post.Value.Id), new MySqlParameter("uid", rating.User.Value.Id), new MySqlParameter("stars", rating.Stars));
         }
 
-        public List<Rating> GetRating(int userId)
+        public List<Rating> GetRating(int postId)
         {
             Post post = null;
             List<User> users = new List<User>();
             List<Rating> rates = new List<Rating>();
             DataTable executeReader = FoxyFaceDb.ExecuteReader(
-                "SELECT * " +
-                "FROM rating, post, user " +
-                "WHERE rating.post_id = post.Post_id AND rating.user_id = user.Users_id AND" +
-                "rating.User_id = @uid",
-                new MySqlParameter("uid", userId));
+                "SELECT * FROM rating WHERE rating.Post_id = @pid",
+                new MySqlParameter("pid", postId));
             if (executeReader.Rows.Count != 0)
                 post = PostRepository.getPost((int)executeReader.Rows[0]["post_id"]);
             

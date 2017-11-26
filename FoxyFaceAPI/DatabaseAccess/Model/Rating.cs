@@ -5,8 +5,8 @@ namespace DatabaseAccess.Model
     public class Rating
     {
         public int Id { get; }
-        public Post Post { get; }
-        public User User { get; }
+        public Lazy<Post> Post { get; }
+        public Lazy<User> User { get; }
 
         private int stars;
         public int Stars
@@ -22,11 +22,25 @@ namespace DatabaseAccess.Model
             }
         }
 
-        public Rating(int id, Post post, User user)
+        public Rating(int id, int postId, int userId)
+        {
+            Id = id;
+            Post = new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.GetPost(postId));
+            User = new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.GetUser(userId));
+        }
+        
+        public Rating(int id, Lazy<Post> post, Lazy<User> user)
         {
             Id = id;
             Post = post;
             User = user;
+        }
+        
+        public Rating(int id, Post post, User user)
+        {
+            Id = id;
+            Post = new Lazy<Post>(() => post);
+            User = new Lazy<User>(() => user);
         }
 
         public override string ToString()
