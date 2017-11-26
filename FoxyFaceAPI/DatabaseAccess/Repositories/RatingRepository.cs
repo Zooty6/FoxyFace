@@ -19,19 +19,15 @@ namespace DatabaseAccess.Repositories
 
         public List<Rating> FindById(int postId)
         {
-            Post post = null;
-            List<User> users = new List<User>();
             List<Rating> rates = new List<Rating>();
             DataTable executeReader = FoxyFaceDb.ExecuteReader(
-                "SELECT * FROM rating WHERE rating.Post_id = @pid",
+                "SELECT * FROM rating WHERE post_id = @pid",
                 new MySqlParameter("pid", postId));
-            if (executeReader.Rows.Count != 0)
-                post = PostRepository.FindById((int)executeReader.Rows[0]["post_id"]);
             
-            //TODO laizy load users
+            
             foreach (DataRow row in executeReader.Rows)
             {
-                rates.Add(new Rating(row["Rating.Rating_id"], post, users)); 
+                rates.Add(new Rating((int)row["Rating_id"], (int)row["post_id"], (int)row["user_id"])); 
             }
             
             return rates;

@@ -17,6 +17,20 @@ namespace DatabaseAccess.Model
         {
         }
 
+        public Comment(Lazy<Post> post, Lazy<User> user, string text, DateTime date)
+        {
+            Post = post ?? throw new ArgumentNullException(nameof(post));
+            User = user ?? throw new ArgumentNullException(nameof(user));
+            Text = text ?? throw new ArgumentNullException(nameof(text));
+            Date = date;
+        }
+        
+        public Comment( int postId, int userId, string text, DateTime date = new DateTime())
+            : this(new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
+                new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), text, date)
+        {
+        }
+
         public Comment(int id, Lazy<Post> post, Lazy<User> user, string text, DateTime date = new DateTime())
         {
             Id = id;
