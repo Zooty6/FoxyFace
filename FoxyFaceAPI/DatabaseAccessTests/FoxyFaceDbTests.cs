@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using System.Net;
 using DatabaseAccess;
+using DatabaseAccess.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseAccessTests
@@ -13,33 +15,64 @@ namespace DatabaseAccessTests
         [ClassInitialize]
         public static void ClassInit(TestContext testContext)
         {
-            FileInfo connectionFile = new FileInfo("../../../data/connectionString.txt");
+            Console.WriteLine("Reading connection string");
+            FileInfo connectionFile = new FileInfo("data/connectionString.txt");
             if (!connectionFile.Exists)
             {
                 throw new FileNotFoundException("Couldn't find connection string file " + connectionFile.FullName);
             }
             string connectionString = File.ReadAllText(connectionFile.FullName);
 
+            Console.WriteLine("Initializing database");
             dbManager = FoxyFaceDbManager.Initialize(connectionString);
-            
-            FileInfo info = new FileInfo("../../../../../database.sql");
+
+            Console.WriteLine("Running setup.sql script");
+            FileInfo info = new FileInfo("data/setup.sql");
             if (!info.Exists)
             {
                 throw new FileNotFoundException("Couldn't find database sql file " + info.FullName);
             }
-            
             dbManager.FoxyFaceDb.ExecuteScript(info.FullName);
         }
         
         [TestMethod]
-        public void TestMethod1()
+        public void CreateEverything()
         {
+            var userRepo = dbManager.UserRepository;
+            var postRepo = dbManager.PostRepository;
+
+            Console.WriteLine("Creating users");
             
+            Console.WriteLine("Creating user 'lyze'");
+            userRepo.Create(new User("lyze", "123", "lyze@ovo"));
+            
+            Console.WriteLine("Creating user 'zooty'");
+            userRepo.Create(new User("zooty", "123", "zooty@owo"));
+
+            Console.WriteLine("Fetching users");
+            User lyze = userRepo.FindByName("lyze");
+            User zooty = userRepo.FindByName("zooty");
+            
+            Console.WriteLine("Creating posts");
+
+            Console.WriteLine("Creating test post");
+            
+            postRepo.Create(new Post(/*no id*/lyze.Id, "Test Post", "Test Description", "/path/to/file.png"));
+            postRepo.Create(new Post(/*no id*/zooty.Id, "Test Post", "Test Description", "/path/to/file.png"));
         }
 
         [ClassCleanup]
         public static void ClassCleanup()
         {
+            Console.WriteLine("Running teardown.sql script");
+            FileInfo info = new FileInfo("data/teardown.sql");
+            if (!info.Exists)
+            {
+                throw new FileNotFoundException("Couldn't find database sql file " + info.FullName);
+            }
+            dbManager.FoxyFaceDb.ExecuteScript(info.FullName);
+            
+            Console.WriteLine("Closing db connection");
             dbManager.Close();
         }
     }

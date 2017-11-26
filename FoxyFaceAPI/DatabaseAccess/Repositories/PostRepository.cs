@@ -14,8 +14,8 @@ namespace DatabaseAccess.Repositories
 
         public void Create(Post post)
         {
-            FoxyFaceDb.ExecuteNonQuery("INSERT INTO post VALUES(@id, @userid, @title, @desc, @date)", 
-                new MySqlParameter("id", post.Id), new MySqlParameter("iserid", post.User.Value.Id), new MySqlParameter("title", post.Title),
+            FoxyFaceDb.ExecuteNonQuery("INSERT INTO post VALUES(@userid, @title, @desc, @date)", 
+                new MySqlParameter("iserid", post.User.Value.Id), new MySqlParameter("title", post.Title),
                 new MySqlParameter("desc", post.Description), new MySqlParameter("date", post.Date));
         }
 
