@@ -13,7 +13,7 @@ namespace DatabaseAccessTests
         [ClassInitialize]
         public static void ClassInit(TestContext testContext)
         {
-            FileInfo connectionFile = new FileInfo("data/connectionString.txt");
+            FileInfo connectionFile = new FileInfo("../../../data/connectionString.txt");
             if (!connectionFile.Exists)
             {
                 throw new FileNotFoundException("Couldn't find connection string file " + connectionFile.FullName);
@@ -22,7 +22,7 @@ namespace DatabaseAccessTests
 
             dbManager = FoxyFaceDbManager.Initialize(connectionString);
             
-            FileInfo info = new FileInfo("../../../database.sql");
+            FileInfo info = new FileInfo("../../../../../database.sql");
             if (!info.Exists)
             {
                 throw new FileNotFoundException("Couldn't find database sql file " + info.FullName);
@@ -40,8 +40,7 @@ namespace DatabaseAccessTests
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            if (dbManager.FoxyFaceDb.IsOpen())
-                dbManager.FoxyFaceDb.Dispose();
+            dbManager.Close();
         }
     }
 }

@@ -27,10 +27,19 @@ namespace DatabaseAccess
         private FoxyFaceDbManager(string connectionString)
         {
             FoxyFaceDb = new FoxyFaceDB(connectionString);
+            
             UserRepository = new UserRepository(FoxyFaceDb);
             RatingRepository = new RatingRepository(FoxyFaceDb);
             CommentRepository = new CommentRepository(FoxyFaceDb);
             PostRepository = new PostRepository(FoxyFaceDb);
+            
+            FoxyFaceDb.Open();
+        }
+
+        public void Close()
+        {
+            if (FoxyFaceDb.IsOpen())
+                FoxyFaceDb.Dispose();
         }
 
         public static FoxyFaceDbManager Initialize(string connectionString)
