@@ -11,6 +11,10 @@ namespace DatabaseAccess.Repositories
 {
     public class UserRepository : Repository
     {
+        public UserRepository(FoxyFaceDB foxyFaceDb) : base(foxyFaceDb)
+        {
+        }
+        
         public void ChangePassword(int id, string password)
         {
             PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, password);
@@ -30,10 +34,6 @@ namespace DatabaseAccess.Repositories
             if (resultTable.Rows.Count == 0)
                 return null;
             return new User((int)resultTable.Rows[0]["user_id"], (string)resultTable.Rows[0]["username"], (string)resultTable.Rows[0]["password"], (string)resultTable.Rows[0]["email"], (string)resultTable.Rows[0]["salt"]);
-        }
-
-        public UserRepository(FoxyFaceDB foxyFaceDb) : base(foxyFaceDb)
-        {
         }
     }
 }
