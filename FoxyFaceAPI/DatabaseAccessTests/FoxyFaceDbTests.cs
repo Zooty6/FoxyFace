@@ -44,10 +44,10 @@ namespace DatabaseAccessTests
             Console.WriteLine("Creating users");
             
             Console.WriteLine("Creating user 'lyze'");
-            userRepo.Create(new User("lyze", "123", "lyze@ovo"));
+            userRepo.Create("lyze", "123", "lyze@ovo");
             
             Console.WriteLine("Creating user 'zooty'");
-            userRepo.Create(new User("zooty", "123", "zooty@owo"));
+            userRepo.Create("zooty", "123", "zooty@owo");
 
             Console.WriteLine("Fetching users");
             User lyze = userRepo.FindByName("lyze");
