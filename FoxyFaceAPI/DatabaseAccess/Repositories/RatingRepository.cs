@@ -11,13 +11,29 @@ namespace DatabaseAccess.Repositories
         {
         }
 
-        public void Create(Rating rating)
+        public void Create(Post post, User user, int stars)
         {
-            FoxyFaceDb.ExecuteNonQuery("INSERT INTO rating VALUES(post_id = @pid, user_id = @uid, stars = @stars)", 
-                new MySqlParameter("pid", rating.Post.Value.Id), new MySqlParameter("uid", rating.User.Value.Id), new MySqlParameter("stars", rating.Stars));
+            Create(post.Id, user.Id, stars);
+        }
+        
+        public Rating Create(int postId, int userId, int stars)
+        {
+            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO rating VALUES(post_id = @pid, user_id = @uid, stars = @stars)", 
+                new MySqlParameter("pid", postId), new MySqlParameter("uid", userId), new MySqlParameter("stars", stars));
+
+            return FindById(id);
         }
 
-        public List<Rating> FindById(int postId)
+        public Rating FindById(int ratingId)
+        {
+            DataTable executeReader = FoxyFaceDb.ExecuteReader(
+                "SELECT * FROM rating WHERE Rating_id = @rid",
+                new MySqlParameter("rid", ratingId));
+            
+            return new Rating((int)executeReader.Rows[0]["Rating_id"], (int)executeReader.Rows[0]["post_id"], (int)executeReader.Rows[0]["user_id"]);
+        }
+        
+        public List<Rating> FindByPostId(int postId)
         {
             List<Rating> rates = new List<Rating>();
             DataTable executeReader = FoxyFaceDb.ExecuteReader(

@@ -11,13 +11,13 @@ namespace DatabaseAccess.Model
         public string Text { get; set; }
         public DateTime Date { get; }
 
-        public Comment(int id, int postId, int userId, string text, DateTime date = new DateTime())
+        internal Comment(int id, int postId, int userId, string text, DateTime date = new DateTime())
             : this(id, new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
                 new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), text, date)
         {
         }
 
-        public Comment(Lazy<Post> post, Lazy<User> user, string text, DateTime date)
+        internal Comment(Lazy<Post> post, Lazy<User> user, string text, DateTime date)
         {
             Post = post ?? throw new ArgumentNullException(nameof(post));
             User = user ?? throw new ArgumentNullException(nameof(user));
@@ -25,13 +25,13 @@ namespace DatabaseAccess.Model
             Date = date;
         }
         
-        public Comment( int postId, int userId, string text, DateTime date = new DateTime())
+        internal Comment( int postId, int userId, string text, DateTime date = new DateTime())
             : this(new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
                 new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), text, date)
         {
         }
 
-        public Comment(int id, Lazy<Post> post, Lazy<User> user, string text, DateTime date = new DateTime())
+        internal Comment(int id, Lazy<Post> post, Lazy<User> user, string text, DateTime date = new DateTime())
         {
             Id = id;
             Post = post;
@@ -40,7 +40,7 @@ namespace DatabaseAccess.Model
             Date = date;
         }
 
-        public Comment(int id, Post post, User user, string text, DateTime date = new DateTime())
+        internal Comment(int id, Post post, User user, string text, DateTime date = new DateTime())
             : this(id, new Lazy<Post>(() => post), new Lazy<User>(() => user), text, date)
         {
         }

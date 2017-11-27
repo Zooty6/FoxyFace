@@ -23,20 +23,20 @@ namespace DatabaseAccess.Model
             }
         }
 
-        public Rating(int id, int postId, int userId)
+        internal Rating(int id, int postId, int userId)
             : this(id, new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
                 new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)))
         {
         }
 
-        public Rating(int id, Lazy<Post> post, Lazy<User> user)
+        internal Rating(int id, Lazy<Post> post, Lazy<User> user)
         {
             Id = id;
             Post = post;
             User = user;
         }
 
-        public Rating(int id, Post post, User user)
+        internal Rating(int id, Post post, User user)
             : this(id, new Lazy<Post>(() => post), new Lazy<User>(() => user))
         {
         }

@@ -15,6 +15,11 @@ namespace DatabaseAccess.Repositories
         {
         }
         
+        public void ChangePassword(User user, string password)
+        {
+            ChangePassword(user.Id, password);
+        }
+        
         public void ChangePassword(int id, string password)
         {
             PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, password);
@@ -22,10 +27,13 @@ namespace DatabaseAccess.Repositories
             FoxyFaceDb.ExecuteNonQuery("UPDATE user SET password = @password, salt = @salt WHERE id = @id", new MySqlParameter("password", Convert.ToBase64String(encodedPassword)), new MySqlParameter("salt", Convert.ToBase64String(generatedSalt)), new MySqlParameter("id", id));
         }
 
-        public void Create(User user)
+        public User Create(string username, string unencryptedPassword, string email)
         {
-            MySqlParameter[] parameters = {new MySqlParameter("name", user.Username), new MySqlParameter("password", user.Password), new MySqlParameter("email", user.Email) ,new MySqlParameter("salt", user.Salt)};
-            FoxyFaceDb.ExecuteNonQuery("INSERT INTO user VALUES(@name, @password, @email, @salt)", parameters);
+            PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, unencryptedPassword);
+            
+            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO user VALUES(@name, @password, @email, @salt)", new MySqlParameter("name", username), new MySqlParameter("password", encodedPassword), new MySqlParameter("email", email) ,new MySqlParameter("salt", generatedSalt));
+
+            return FindById(id);
         }
 
         public User FindById(int id)

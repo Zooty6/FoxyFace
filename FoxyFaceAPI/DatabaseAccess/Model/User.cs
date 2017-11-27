@@ -12,7 +12,7 @@ namespace DatabaseAccess.Model
         public string Email{ get; }
         public string Salt { get; }
 
-        public User(string username, string password, string email)
+        internal User(string username, string password, string email)
         {
             PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, password ?? throw new ArgumentNullException(nameof(password)));
             Username = username ?? throw new ArgumentNullException(nameof(username));
@@ -21,8 +21,7 @@ namespace DatabaseAccess.Model
             Salt = Convert.ToBase64String(generatedSalt);
         }
 
-
-        public User(int id, string username, string password, string email)
+        internal User(int id, string username, string password, string email)
         {
             Id = id;
             PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, password ?? throw new ArgumentNullException(nameof(password)));
@@ -32,7 +31,7 @@ namespace DatabaseAccess.Model
             Salt = Convert.ToBase64String(generatedSalt);
         }
 
-        public User(int id, string username, string password, string email, string salt)
+        internal User(int id, string username, string password, string email, string salt)
         {
             Id = id;
             Salt = salt?? throw new ArgumentNullException(nameof(salt));

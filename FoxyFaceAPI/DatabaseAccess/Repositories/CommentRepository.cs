@@ -12,11 +12,21 @@ namespace DatabaseAccess.Repositories
         {
         }
 
-        public void Save(Comment comment)
+        public Comment Create(int postId, int userId, string text)
         {
-            FoxyFaceDb.ExecuteNonQuery("INSERT INTO comment VALUES (@postId, @userId, @text, @date)", 
-                new MySqlParameter("postID", comment.Post.Value.Id), new MySqlParameter("userId", comment.User.Value.Id), 
-                new MySqlParameter("text", comment.Text), new MySqlParameter("date", comment.Date));
+            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO comment VALUES (@postId, @userId, @text, @date)", 
+                new MySqlParameter("postID", postId), new MySqlParameter("userId", userId), 
+                new MySqlParameter("text", text));
+            
+            return FindById(id);
+        }
+        
+        public Comment FindById(int commentId)
+        {
+            DataTable resultDataTable = FoxyFaceDb.ExecuteReader("SELECT * FROM comment WHERE Comment_id = @commentId",
+                new MySqlParameter("commentId", commentId));
+
+            return new Comment((int)resultDataTable.Rows[0]["Comment_id"], (int)resultDataTable.Rows[0]["post_id"], (int)resultDataTable.Rows[0]["user_id"], (string)resultDataTable.Rows[0]["text"], (DateTime)resultDataTable.Rows[0]["date"]);
         }
 
         public List<Comment> FindByPost(int postId)
