@@ -57,8 +57,8 @@ namespace DatabaseAccessTests
 
             Console.WriteLine("Creating test post");
             
-            postRepo.Create(new Post(/*no id*/lyze.Id, "Test Post", "Test Description", "/path/to/file.png"));
-            postRepo.Create(new Post(/*no id*/zooty.Id, "Test Post", "Test Description", "/path/to/file.png"));
+            postRepo.Create(lyze.Id, "Test Post", "Test Description", "/path/to/file.png");
+            postRepo.Create(zooty.Id, "Test Post", "Test Description", "/path/to/file.png");
         }
 
         [ClassCleanup]
