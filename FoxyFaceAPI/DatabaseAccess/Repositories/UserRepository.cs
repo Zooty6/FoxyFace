@@ -22,14 +22,14 @@ namespace DatabaseAccess.Repositories
         
         public void ChangePassword(int id, string password)
         {
-            PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, password);
+            PasswordHasher.Encrypt(out string encodedPassword, out string generatedSalt, password);
             
-            FoxyFaceDb.ExecuteNonQuery("UPDATE user SET password = @password, salt = @salt WHERE id = @id", new MySqlParameter("password", Convert.ToBase64String(encodedPassword)), new MySqlParameter("salt", Convert.ToBase64String(generatedSalt)), new MySqlParameter("id", id));
+            FoxyFaceDb.ExecuteNonQuery("UPDATE user SET password = @password, salt = @salt WHERE id = @id", new MySqlParameter("password", encodedPassword), new MySqlParameter("salt", generatedSalt), new MySqlParameter("id", id));
         }
 
         public User Create(string username, string unencryptedPassword, string email)
         {
-            PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, unencryptedPassword);
+            PasswordHasher.Encrypt(out string encodedPassword, out string generatedSalt, unencryptedPassword);
             
             int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO user (username, password, email, salt) VALUES(@name, @password, @email, @salt)", new MySqlParameter("name", username), new MySqlParameter("password", encodedPassword), new MySqlParameter("email", email) ,new MySqlParameter("salt", generatedSalt));
 

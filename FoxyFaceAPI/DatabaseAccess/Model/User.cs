@@ -14,21 +14,21 @@ namespace DatabaseAccess.Model
 
         internal User(string username, string password, string email)
         {
-            PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, password ?? throw new ArgumentNullException(nameof(password)));
+            PasswordHasher.Encrypt(out string encodedPassword, out string generatedSalt, password ?? throw new ArgumentNullException(nameof(password)));
             Username = username ?? throw new ArgumentNullException(nameof(username));
-            Password = Convert.ToBase64String(encodedPassword);
+            Password = encodedPassword;
             Email = email ?? throw new ArgumentNullException(nameof(email));
-            Salt = Convert.ToBase64String(generatedSalt);
+            Salt = generatedSalt;
         }
 
         internal User(int id, string username, string password, string email)
         {
             Id = id;
-            PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, password ?? throw new ArgumentNullException(nameof(password)));
+            PasswordHasher.Encrypt(out string encodedPassword, out string generatedSalt, password ?? throw new ArgumentNullException(nameof(password)));
             Username = username ?? throw new ArgumentNullException(nameof(username));
-            Password = Convert.ToBase64String(encodedPassword);
+            Password = encodedPassword;
             Email = email ?? throw new ArgumentNullException(nameof(email));
-            Salt = Convert.ToBase64String(generatedSalt);
+            Salt = generatedSalt;
         }
 
         internal User(int id, string username, string password, string email, string salt)

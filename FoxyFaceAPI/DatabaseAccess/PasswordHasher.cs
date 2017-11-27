@@ -39,9 +39,12 @@ public static class PasswordHasher
         return 0 == xor;
     }
     
-    public static void Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, string password)
+    public static void Encrypt(out string encodedPassword, out string generatedSalt, string password)
     {
-        generatedSalt = PasswordHasher.GenerateSalt();
-        encodedPassword = PasswordHasher.ComputeHash(password, generatedSalt);
+        byte[] generatedSaltBytes = GenerateSalt();
+        byte[] encodedPasswordBytes = ComputeHash(password, generatedSaltBytes);
+
+        generatedSalt = Convert.ToBase64String(generatedSaltBytes);
+        encodedPassword = Convert.ToBase64String(encodedPasswordBytes);
     }
 }
