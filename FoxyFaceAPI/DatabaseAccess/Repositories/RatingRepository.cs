@@ -19,7 +19,7 @@ namespace DatabaseAccess.Repositories
         
         public Rating Create(int postId, int userId, int stars)
         {
-            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO rating (post_id, user_id, stars) VALUES(post_id = @pid, user_id = @uid, stars = @stars)", 
+            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO rating (post_id, user_id, stars) VALUES(@pid, @uid, @stars)", 
                 new MySqlParameter("pid", postId), new MySqlParameter("uid", userId), new MySqlParameter("stars", stars));
 
             return FindById(id);
