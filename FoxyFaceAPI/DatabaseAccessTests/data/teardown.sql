@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS post;
-DROP TABLE IF EXISTS comment;
-DROP TABLE IF EXISTS rating;
-DROP TABLE IF EXISTS user;
+USE foxyface;
+
+DROP TABLE IF EXISTS comment, rating, post, user;

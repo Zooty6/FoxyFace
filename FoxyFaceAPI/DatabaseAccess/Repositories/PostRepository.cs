@@ -12,6 +12,12 @@ namespace DatabaseAccess.Repositories
         {
         }
 
+
+        public Post Create(User user, string title, string description, string path)
+        {
+            return Create(user.Id, title, description, path);
+        }
+
         public Post Create(int userId, string title, string description, string path)
         {
             long insertedId = FoxyFaceDb.ExecuteNonQuery("INSERT INTO post (user_id, title, description, path) VALUES(@userid, @title, @desc, @path)", 

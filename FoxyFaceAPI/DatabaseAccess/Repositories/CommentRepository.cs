@@ -12,6 +12,11 @@ namespace DatabaseAccess.Repositories
         {
         }
 
+        public Comment Create(Post post, User user, string text)
+        {
+            return Create(post.Id, user.Id, text);
+        }
+
         public Comment Create(int postId, int userId, string text)
         {
             int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO comment VALUES (@postId, @userId, @text, @date)", 

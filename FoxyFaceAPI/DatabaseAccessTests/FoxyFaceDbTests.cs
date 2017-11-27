@@ -1,8 +1,10 @@
 using System;
 using System.IO;
+using System.IO.IsolatedStorage;
 using System.Net;
 using DatabaseAccess;
 using DatabaseAccess.Model;
+using DatabaseAccess.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DatabaseAccessTests
@@ -26,8 +28,16 @@ namespace DatabaseAccessTests
             Console.WriteLine("Initializing database");
             dbManager = FoxyFaceDbManager.Initialize(connectionString);
 
+            Console.WriteLine("Running teardown.sql script");
+            FileInfo info = new FileInfo("data/teardown.sql");
+            if (!info.Exists)
+            {
+                throw new FileNotFoundException("Couldn't find database sql file " + info.FullName);
+            }
+            dbManager.FoxyFaceDb.ExecuteScript(info.FullName);
+            
             Console.WriteLine("Running setup.sql script");
-            FileInfo info = new FileInfo("data/setup.sql");
+            info = new FileInfo("data/setup.sql");
             if (!info.Exists)
             {
                 throw new FileNotFoundException("Couldn't find database sql file " + info.FullName);
@@ -40,6 +50,8 @@ namespace DatabaseAccessTests
         {
             var userRepo = dbManager.UserRepository;
             var postRepo = dbManager.PostRepository;
+            var ratingRepo = dbManager.RatingRepository;
+            var commentRepo = dbManager.CommentRepository;
 
             Console.WriteLine("Creating users");
             
@@ -51,21 +63,32 @@ namespace DatabaseAccessTests
             
             Console.WriteLine("Creating posts");
             
-            postRepo.Create(lyze.Id, "Test Post", "Test Description", "/path/to/file.png");
-            postRepo.Create(zooty.Id, "Test Post", "Test Description", "/path/to/file.png");
+            Post post1 = postRepo.Create(lyze, "Test Post", "Test Description", "/path/to/file.png");
+            Post post2 = postRepo.Create(zooty, "Test Post", "Test Description", "/path/to/file.png");
+
+            Console.WriteLine("Create ratings");
+
+            for (int i = 1; i <= 5; i++)
+            {
+                ratingRepo.Create(post1, i % 2 == 0 ? lyze : zooty, i);
+            }
+            for (int i = 1; i <= 5; i++)
+            {
+                ratingRepo.Create(post2, i % 2 == 0 ? lyze : zooty, i);
+            }
+           
+            Console.WriteLine("Creating comments");
+           
+            commentRepo.Create(post1, lyze, "OvO this is awesome");
+            commentRepo.Create(post1, zooty, "OwO this is awesome");
+
+            commentRepo.Create(post2, lyze, "Meh");
+            commentRepo.Create(post2, zooty, "Booo!");
         }
 
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            Console.WriteLine("Running teardown.sql script");
-            FileInfo info = new FileInfo("data/teardown.sql");
-            if (!info.Exists)
-            {
-                throw new FileNotFoundException("Couldn't find database sql file " + info.FullName);
-            }
-            dbManager.FoxyFaceDb.ExecuteScript(info.FullName);
-            
             Console.WriteLine("Closing db connection");
             dbManager.Close();
         }
