@@ -12,11 +12,12 @@ namespace DatabaseAccess.Repositories
         {
         }
 
-        public void Create(Post post)
+        public Post Create(int userId, string title, string description, string path)
         {
-            FoxyFaceDb.ExecuteNonQuery("INSERT INTO post VALUES(@userid, @title, @desc, @date)", 
-                new MySqlParameter("iserid", post.User.Value.Id), new MySqlParameter("title", post.Title),
-                new MySqlParameter("desc", post.Description), new MySqlParameter("date", post.Date));
+            long insertedId = FoxyFaceDb.ExecuteNonQuery("INSERT INTO post VALUES(@userid, @title, @desc, @path @date)", 
+                new MySqlParameter("userid", userId), new MySqlParameter("title", title),
+                new MySqlParameter("desc", description), new MySqlParameter("path", path), new MySqlParameter("date", DateTime.Now));
+            return FindById((int) insertedId);
         }
 
         public void Delete(Post post)

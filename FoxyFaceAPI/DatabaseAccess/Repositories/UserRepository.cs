@@ -36,6 +36,19 @@ namespace DatabaseAccess.Repositories
             return FindById(id);
         }
 
+        public User FindByName(string user)
+        {
+            DataTable resultTable = FoxyFaceDb.ExecuteReader("SELECT * FROM user WHERE username = @username",
+                new MySqlParameter("username", user));
+            if (resultTable.Rows.Count == 1)
+            {
+                return new User((int)resultTable.Rows[0]["user_id"], (string)resultTable.Rows[0]["username"], 
+                    (string)resultTable.Rows[0]["password"], (string)resultTable.Rows[0]["email"], (string)resultTable.Rows[0]["salt"]);
+            }
+            return null;
+
+        }
+        
         public User FindById(int id)
         {
             DataTable resultTable = FoxyFaceDb.ExecuteReader("SELECT * FROM user WHERE id = @id", new MySqlParameter("id", id));

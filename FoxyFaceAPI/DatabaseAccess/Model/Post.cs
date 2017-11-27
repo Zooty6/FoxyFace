@@ -11,6 +11,12 @@ namespace DatabaseAccess.Model
         public string Path { get; }
         public DateTime Date { get; }
 
+        internal Post(int userId, string title, string description, string path, DateTime date = new DateTime())
+            : this(0, new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), title,
+                description, path, date)
+        {
+        }
+        
         internal Post(int id, int userId, string title, string description, string path, DateTime date = new DateTime())
             : this(id, new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), title,
                 description, path, date)
