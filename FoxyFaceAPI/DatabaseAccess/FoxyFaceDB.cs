@@ -74,7 +74,7 @@ namespace DatabaseAccess
         /// </summary>
         /// <param name="qry">The SQL Statement to be executed.</param>
         /// <param name="parameterCollection">The list of bind values to use for execution.</param>
-        public void ExecuteNonQuery(string qry, params MySqlParameter[] parameterCollection)
+        public long ExecuteNonQuery(string qry, params MySqlParameter[] parameterCollection)
         {
             using (MySqlCommand command = connection.CreateCommand())
             {
@@ -82,6 +82,7 @@ namespace DatabaseAccess
                 //command.BindByName = true;
                 AttachParameters(command, parameterCollection);
                 command.ExecuteNonQuery();
+                return command.LastInsertedId;
             }
         }
 
