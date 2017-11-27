@@ -31,7 +31,7 @@ namespace DatabaseAccess.Repositories
         {
             PasswordHasher.Encrypt(out byte[] encodedPassword, out byte[] generatedSalt, unencryptedPassword);
             
-            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO user VALUES(@name, @password, @email, @salt)", new MySqlParameter("name", username), new MySqlParameter("password", encodedPassword), new MySqlParameter("email", email) ,new MySqlParameter("salt", generatedSalt));
+            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO user (username, password, email, salt) VALUES(@name, @password, @email, @salt)", new MySqlParameter("name", username), new MySqlParameter("password", encodedPassword), new MySqlParameter("email", email) ,new MySqlParameter("salt", generatedSalt));
 
             return FindById(id);
         }
@@ -51,7 +51,7 @@ namespace DatabaseAccess.Repositories
         
         public User FindById(int id)
         {
-            DataTable resultTable = FoxyFaceDb.ExecuteReader("SELECT * FROM user WHERE id = @id", new MySqlParameter("id", id));
+            DataTable resultTable = FoxyFaceDb.ExecuteReader("SELECT * FROM user WHERE Users_id = @id", new MySqlParameter("id", id));
             if (resultTable.Rows.Count == 0)
                 return null;
             return new User((int)resultTable.Rows[0]["user_id"], (string)resultTable.Rows[0]["username"], (string)resultTable.Rows[0]["password"], (string)resultTable.Rows[0]["email"], (string)resultTable.Rows[0]["salt"]);

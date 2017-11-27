@@ -5,12 +5,12 @@ USE foxyface;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS user (
-  `Users_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `User_id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(128) NOT NULL,
   `email` VARCHAR(128) NOT NULL,
   `salt` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`Users_id`))
+  PRIMARY KEY (`User_id`))
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8;
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS post (
   INDEX `fk_Post_1_idx` (`user_id` ASC),
   CONSTRAINT `fk_post_user_id`
   FOREIGN KEY (`user_id`)
-  REFERENCES `foxyface`.`user` (`Users_id`)
+  REFERENCES `foxyface`.`user` (User_id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
   ENGINE = InnoDB
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS comment (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Comment_user_id`
   FOREIGN KEY (`user_id`)
-  REFERENCES `foxyface`.`user` (`Users_id`)
+  REFERENCES `foxyface`.`user` (User_id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
   ENGINE = InnoDB
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS rating (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Rating_user_id`
   FOREIGN KEY (`user_id`)
-  REFERENCES `foxyface`.`user` (`Users_id`)
+  REFERENCES `foxyface`.`user` (User_id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
   ENGINE = InnoDB

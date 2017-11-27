@@ -44,18 +44,12 @@ namespace DatabaseAccessTests
             Console.WriteLine("Creating users");
             
             Console.WriteLine("Creating user 'lyze'");
-            userRepo.Create("lyze", "123", "lyze@ovo");
+            User lyze = userRepo.Create("lyze", "123", "lyze@ovo");
             
             Console.WriteLine("Creating user 'zooty'");
-            userRepo.Create("zooty", "123", "zooty@owo");
-
-            Console.WriteLine("Fetching users");
-            User lyze = userRepo.FindByName("lyze");
-            User zooty = userRepo.FindByName("zooty");
+            User zooty = userRepo.Create("zooty", "123", "zooty@owo");
             
             Console.WriteLine("Creating posts");
-
-            Console.WriteLine("Creating test post");
             
             postRepo.Create(lyze.Id, "Test Post", "Test Description", "/path/to/file.png");
             postRepo.Create(zooty.Id, "Test Post", "Test Description", "/path/to/file.png");
