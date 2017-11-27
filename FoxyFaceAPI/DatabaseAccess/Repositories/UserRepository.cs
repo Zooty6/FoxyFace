@@ -42,7 +42,7 @@ namespace DatabaseAccess.Repositories
                 new MySqlParameter("username", user));
             if (resultTable.Rows.Count == 1)
             {
-                return new User((int)resultTable.Rows[0]["user_id"], (string)resultTable.Rows[0]["username"], 
+                return new User(Convert.ToInt32(resultTable.Rows[0]["user_id"]), (string)resultTable.Rows[0]["username"], 
                     (string)resultTable.Rows[0]["password"], (string)resultTable.Rows[0]["email"], (string)resultTable.Rows[0]["salt"]);
             }
             return null;
@@ -51,10 +51,10 @@ namespace DatabaseAccess.Repositories
         
         public User FindById(int id)
         {
-            DataTable resultTable = FoxyFaceDb.ExecuteReader("SELECT * FROM user WHERE Users_id = @id", new MySqlParameter("id", id));
+            DataTable resultTable = FoxyFaceDb.ExecuteReader("SELECT * FROM user WHERE User_id = @id", new MySqlParameter("id", id));
             if (resultTable.Rows.Count == 0)
                 return null;
-            return new User((int)resultTable.Rows[0]["user_id"], (string)resultTable.Rows[0]["username"], (string)resultTable.Rows[0]["password"], (string)resultTable.Rows[0]["email"], (string)resultTable.Rows[0]["salt"]);
+            return new User(Convert.ToInt32(resultTable.Rows[0]["User_id"]), (string)resultTable.Rows[0]["username"], (string)resultTable.Rows[0]["password"], (string)resultTable.Rows[0]["email"], (string)resultTable.Rows[0]["salt"]);
         }
     }
 }

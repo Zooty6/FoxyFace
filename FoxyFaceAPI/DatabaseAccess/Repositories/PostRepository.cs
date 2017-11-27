@@ -14,9 +14,9 @@ namespace DatabaseAccess.Repositories
 
         public Post Create(int userId, string title, string description, string path)
         {
-            long insertedId = FoxyFaceDb.ExecuteNonQuery("INSERT INTO post VALUES(@userid, @title, @desc, @path @date)", 
+            long insertedId = FoxyFaceDb.ExecuteNonQuery("INSERT INTO post (user_id, title, description, path) VALUES(@userid, @title, @desc, @path)", 
                 new MySqlParameter("userid", userId), new MySqlParameter("title", title),
-                new MySqlParameter("desc", description), new MySqlParameter("path", path), new MySqlParameter("date", DateTime.Now));
+                new MySqlParameter("desc", description), new MySqlParameter("path", path));
             return FindById((int) insertedId);
         }
 
@@ -33,8 +33,9 @@ namespace DatabaseAccess.Repositories
                 return null;
             }
             DataRow postRow = resultDataTable.Rows[0];
-            return new Post((int) postRow["Post_id"], (int)postRow["user_id"], (string)postRow["title"], (string)postRow["description"],
-                (string)postRow["path"], (DateTime)postRow["date"]);
+            Console.WriteLine(postRow["date"]);
+            return new Post(Convert.ToInt32(postRow["Post_id"]), Convert.ToInt32(postRow["user_id"]), (string)postRow["title"], (string)postRow["description"],
+                (string)postRow["path"], DateTimeUtils.ConverTo(postRow["date"]));
         }
 
         public void UpdateTitle(string title, int id)

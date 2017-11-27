@@ -26,7 +26,7 @@ namespace DatabaseAccess.Repositories
             DataTable resultDataTable = FoxyFaceDb.ExecuteReader("SELECT * FROM comment WHERE Comment_id = @commentId",
                 new MySqlParameter("commentId", commentId));
 
-            return new Comment((int)resultDataTable.Rows[0]["Comment_id"], (int)resultDataTable.Rows[0]["post_id"], (int)resultDataTable.Rows[0]["user_id"], (string)resultDataTable.Rows[0]["text"], (DateTime)resultDataTable.Rows[0]["date"]);
+            return new Comment((int)resultDataTable.Rows[0]["Comment_id"], (int)resultDataTable.Rows[0]["post_id"], (int)resultDataTable.Rows[0]["user_id"], (string)resultDataTable.Rows[0]["text"], DateTimeUtils.ConverTo(resultDataTable.Rows[0]["date"]));
         }
 
         public List<Comment> FindByPost(int postId)
@@ -36,7 +36,7 @@ namespace DatabaseAccess.Repositories
                 new MySqlParameter("postid", postId));
             foreach (DataRow row in resultDataTable.Rows)
             {
-                comments.Add(new Comment((int)row["Comment_id"], (int)row["post_id"], (int)row["user_id"], (string)row["text"], (DateTime)row["date"]));
+                comments.Add(new Comment((int)row["Comment_id"], (int)row["post_id"], (int)row["user_id"], (string)row["text"], DateTimeUtils.ConverTo(row["date"])));
             }
 
             return comments;

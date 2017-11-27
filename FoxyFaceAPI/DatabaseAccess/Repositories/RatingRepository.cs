@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using DatabaseAccess.Model;
 using MySql.Data.MySqlClient;
@@ -30,7 +31,7 @@ namespace DatabaseAccess.Repositories
                 "SELECT * FROM rating WHERE Rating_id = @rid",
                 new MySqlParameter("rid", ratingId));
             
-            return new Rating((int)executeReader.Rows[0]["Rating_id"], (int)executeReader.Rows[0]["post_id"], (int)executeReader.Rows[0]["user_id"]);
+            return new Rating(Convert.ToInt32(executeReader.Rows[0]["Rating_id"]), Convert.ToInt32(executeReader.Rows[0]["post_id"]), Convert.ToInt32(executeReader.Rows[0]["user_id"]));
         }
         
         public List<Rating> FindByPostId(int postId)
@@ -43,7 +44,7 @@ namespace DatabaseAccess.Repositories
             
             foreach (DataRow row in executeReader.Rows)
             {
-                rates.Add(new Rating((int)row["Rating_id"], (int)row["post_id"], (int)row["user_id"])); 
+                rates.Add(new Rating(Convert.ToInt32(row["Rating_id"]), Convert.ToInt32(row["post_id"]), Convert.ToInt32(row["user_id"]))); 
             }
             
             return rates;
