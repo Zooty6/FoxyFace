@@ -89,3 +89,19 @@ CREATE TABLE IF NOT EXISTS rating (
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Table `foxyface`.`session`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `session` (
+  `Session_id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `token` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Session_id`),
+  INDEX `FK_session_user_id_idx` (`user_id` ASC),
+  CONSTRAINT `FK_session_user_id`
+  FOREIGN KEY (`user_id`)
+  REFERENCES `foxyface`.`user` (`User_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  ENGINE = InnoDB;

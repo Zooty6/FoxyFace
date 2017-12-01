@@ -10,6 +10,7 @@ namespace DatabaseAccess
         public RatingRepository RatingRepository { get; }
         public CommentRepository CommentRepository { get; }
         public PostRepository PostRepository { get; }
+        public SessionRepository SessionRepository { get; set; }
 
         private static FoxyFaceDbManager instance;
 
@@ -32,6 +33,7 @@ namespace DatabaseAccess
             RatingRepository = new RatingRepository(FoxyFaceDb);
             CommentRepository = new CommentRepository(FoxyFaceDb);
             PostRepository = new PostRepository(FoxyFaceDb);
+            SessionRepository = new SessionRepository(FoxyFaceDb);
             
             FoxyFaceDb.Open();
         }

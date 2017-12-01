@@ -1,3 +1,3 @@
 USE foxyface;
 
-DROP TABLE IF EXISTS comment, rating, post, user;
+DROP TABLE IF EXISTS session, comment, rating, post, user;

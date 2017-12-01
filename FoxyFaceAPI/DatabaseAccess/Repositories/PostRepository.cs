@@ -11,8 +11,7 @@ namespace DatabaseAccess.Repositories
         public PostRepository(FoxyFaceDB foxyFaceDb) : base(foxyFaceDb)
         {
         }
-
-
+        
         public Post Create(User user, string title, string description, string path)
         {
             return Create(user.Id, title, description, path);

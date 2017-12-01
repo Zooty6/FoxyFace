@@ -52,6 +52,7 @@ namespace DatabaseAccessTests
             var postRepo = dbManager.PostRepository;
             var ratingRepo = dbManager.RatingRepository;
             var commentRepo = dbManager.CommentRepository;
+            var sessionRepo = dbManager.SessionRepository;
 
             Console.WriteLine("Creating users");
             
@@ -84,6 +85,12 @@ namespace DatabaseAccessTests
 
             commentRepo.Create(post2, lyze, "Meh");
             commentRepo.Create(post2, zooty, "Booo!");
+
+            Session lyzeSession = sessionRepo.Create(lyze);
+            Session zootySession = sessionRepo.Create(zooty);
+
+            Assert.AreEqual(lyzeSession, sessionRepo.FindById(lyzeSession.Id));
+            Assert.AreEqual(zootySession, sessionRepo.FindByToken(zootySession.Token));
         }
 
         [ClassCleanup]
