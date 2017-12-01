@@ -1,1 +1,0 @@
-server=localhost;userid=Zooty;password=1234;database=foxyface;SslMode=none
