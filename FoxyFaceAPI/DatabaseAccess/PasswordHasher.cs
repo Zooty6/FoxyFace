@@ -47,4 +47,13 @@ public static class PasswordHasher
         generatedSalt = Convert.ToBase64String(generatedSaltBytes);
         encodedPassword = Convert.ToBase64String(encodedPasswordBytes);
     }
+    
+    public static bool Compare(string goodPassword, string salt, string actualPassword)
+    {
+        byte[] generatedSaltBytes = Convert.FromBase64String(salt);
+        byte[] actualEncodedPasswordBytes = ComputeHash(actualPassword, generatedSaltBytes);
+        byte[] goodPasswordBytes = Convert.FromBase64String(goodPassword);
+
+        return AreHashesEqual(goodPasswordBytes, actualEncodedPasswordBytes);
+    }
 }

@@ -24,6 +24,18 @@ namespace DatabaseAccess.Repositories
             return new Session((int)sessionId, userId, generatedToken);
         }
 
+        public void Delete(Session session)
+        {
+             Delete(session.Id);
+        }
+
+        public void Delete(int sessionId)
+        {
+            FoxyFaceDb.ExecuteNonQuery("DELETE FROM session WHERE Session_id = @id",
+                new MySqlParameter("id", sessionId));
+            
+        }
+
         public Session FindById(int sessionId)
         {
             DataTable resultDataTable = FoxyFaceDb.ExecuteReader("SELECT * FROM session WHERE Session_id = @sessionId",

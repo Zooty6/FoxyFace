@@ -58,9 +58,11 @@ namespace DatabaseAccessTests
             
             Console.WriteLine("Creating user 'lyze'");
             User lyze = userRepo.Create("lyze", "123", "lyze@ovo");
+            Assert.IsTrue(lyze.CanLogIn("123"));
             
             Console.WriteLine("Creating user 'zooty'");
             User zooty = userRepo.Create("zooty", "123", "zooty@owo");
+            Assert.IsTrue(lyze.CanLogIn("123"));
             
             Console.WriteLine("Creating posts");
             
