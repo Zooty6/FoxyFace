@@ -46,7 +46,18 @@ namespace DatabaseAccess.Repositories
                     (string)resultTable.Rows[0]["password"], (string)resultTable.Rows[0]["email"], (string)resultTable.Rows[0]["salt"]);
             }
             return null;
+        }
 
+        public User FindByEmail(string email)
+        {
+            DataTable resultTable = FoxyFaceDb.ExecuteReader("SELECT * FROM user WHERE email = @email",
+                new MySqlParameter("email", email));
+            if (resultTable.Rows.Count == 1)
+            {
+                return new User(Convert.ToInt32(resultTable.Rows[0]["user_id"]), (string)resultTable.Rows[0]["username"], 
+                    (string)resultTable.Rows[0]["password"], (string)resultTable.Rows[0]["email"], (string)resultTable.Rows[0]["salt"]);
+            }
+            return null;
         }
         
         public User FindById(int id)

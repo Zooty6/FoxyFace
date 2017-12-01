@@ -3,3 +3,4 @@ obj
 bin
 .idea
 FoxyFaceAPI/DatabaseAccessTests/data/connectionString.txt
+FoxyFaceAPI/FoxyFaceAPI/data/connectionString.txt

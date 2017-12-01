@@ -14,4 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DatabaseAccess\DatabaseAccess.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="data/connectionString.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
