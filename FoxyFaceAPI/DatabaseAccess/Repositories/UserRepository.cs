@@ -24,7 +24,7 @@ namespace DatabaseAccess.Repositories
         {
             PasswordHasher.Encrypt(out string encodedPassword, out string generatedSalt, password);
             
-            FoxyFaceDb.ExecuteNonQuery("UPDATE user SET password = @password, salt = @salt WHERE id = @id", new MySqlParameter("password", encodedPassword), new MySqlParameter("salt", generatedSalt), new MySqlParameter("id", id));
+            FoxyFaceDb.ExecuteNonQuery("UPDATE user SET password = @password, salt = @salt WHERE User_id = @id", new MySqlParameter("password", encodedPassword), new MySqlParameter("salt", generatedSalt), new MySqlParameter("id", id));
         }
 
         public User Create(string username, string unencryptedPassword, string email)

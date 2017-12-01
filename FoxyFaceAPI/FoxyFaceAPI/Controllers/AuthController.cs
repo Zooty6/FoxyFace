@@ -76,7 +76,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            if (!user.CanLogIn(password))
+            if (!user.IsPasswordCorrect(password))
             {
                 return Json(new
                 {
@@ -95,6 +95,15 @@ namespace FoxyFaceAPI.Controllers
         [HttpPost("logout")]
         public JsonResult Logout(string token)
         {
+            if (string.IsNullOrEmpty(token))
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = ErrorObjects.ParametersAreNotValid
+                });
+            }
+            
             Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
             if (session == null)
             {
@@ -106,6 +115,44 @@ namespace FoxyFaceAPI.Controllers
             }
 
             FoxyFaceDbManager.Instance.SessionRepository.Delete(session);
+            return Json(new
+            {
+                success = true
+            });
+        }
+        // POST api/auth/changePassword
+        [HttpPost("changePassword")]
+        public JsonResult ChangePassword(string oldPassword, string newPassword, string token)
+        {
+            if (string.IsNullOrEmpty(oldPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(token))
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = ErrorObjects.ParametersAreNotValid
+                });
+            }
+            
+            Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
+            if (session == null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = ErrorObjects.TokenNotValid
+                });
+            }
+
+            if (!session.User.Value.IsPasswordCorrect(oldPassword))
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = ErrorObjects.PasswordError
+                });
+            }
+            
+            FoxyFaceDbManager.Instance.UserRepository.ChangePassword(session.User.Value, newPassword);
             return Json(new
             {
                 success = true

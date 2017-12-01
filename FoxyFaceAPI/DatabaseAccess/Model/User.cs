@@ -40,7 +40,7 @@ namespace DatabaseAccess.Model
             Email = email ?? throw new ArgumentNullException(nameof(email));
         }
 
-        public bool CanLogIn(string password)
+        public bool IsPasswordCorrect(string password)
         {
             return PasswordHasher.Compare(Password, Salt, password);
         }

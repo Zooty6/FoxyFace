@@ -14,6 +14,9 @@ namespace FoxyFaceAPI
         
         //login - 2xx
         public static readonly ErrorObject LoginError = new ErrorObject(201, "Username or password is wrong");
+        
+        //change password - 3xx
+        public static readonly ErrorObject PasswordError = new ErrorObject(301, "Password is wrong");
     }
 
     public class ErrorObject
