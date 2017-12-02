@@ -16,12 +16,21 @@ namespace FoxyFaceAPI
         
         public static void Main(string[] args)
         {
-            FileInfo connectionFile = new FileInfo("data/connectionString.txt");
+            FileInfo connectionFile = new FileInfo("data/dbConnectionString.txt");
             if (!connectionFile.Exists)
             {
-                Console.WriteLine("Couldn't find connection file, aborting");
+                Console.WriteLine("Couldn't find data/dbConnectionString.txt, aborting");
                 return;
             }
+            FileInfo accountFile = new FileInfo("data/azureKey.txt");
+            if (!connectionFile.Exists)
+            {
+                Console.WriteLine("Couldn't find data/azureKey. file, aborting");
+                return;
+            }
+
+            string[] key = File.ReadAllLines(accountFile.FullName);
+            CloudStorage.Initialize(key[0], key[1]);
             
             FoxyFaceDbManager.Initialize(File.ReadAllText(connectionFile.FullName));
             BuildWebHost(args).Run();

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DatabaseAccess;
 using DatabaseAccess.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoxyFaceAPI.Controllers
@@ -8,6 +10,13 @@ namespace FoxyFaceAPI.Controllers
     [Route("api/[controller]")]
     public class PostController : Controller
     {
+        private Random random;
+
+        public PostController()
+        {
+            random = new Random();
+        }
+        
         [HttpGet]
         public JsonResult Get(int postId, string token)
         {
@@ -51,7 +60,7 @@ namespace FoxyFaceAPI.Controllers
         }
         
         [HttpPost]
-        public JsonResult Post(string title, string description, object file, string token)
+        public JsonResult Post(string title, string description, IFormFile file, string token)
         {
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(token))
             {
@@ -71,7 +80,17 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
 
-            Post post = FoxyFaceDbManager.Instance.PostRepository.Create(session.User.Value, title, description, path);
+            Console.WriteLine("Uploading file: " + file.FileName);
+
+            string blobPath;
+            do
+            {
+                blobPath = session.User.Value.Username + "/" + random.Next() + "_" + file.FileName;
+            } while (CloudStorage.Instance.FileExists(blobPath));
+            
+            Uri uri = CloudStorage.Instance.UploadFile(blobPath, file.OpenReadStream()).Result;
+
+            Post post = FoxyFaceDbManager.Instance.PostRepository.Create(session.User.Value, title, description, uri.ToString());
             return Json(new
             {
                 postId = post.Id

@@ -7,6 +7,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.6.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
@@ -15,6 +16,7 @@
     <ProjectReference Include="..\DatabaseAccess\DatabaseAccess.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="data/connectionString.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="data/dbConnectionString.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="data/azureKey.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

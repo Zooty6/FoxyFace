@@ -21,6 +21,7 @@ namespace FoxyFaceAPI
         
         // post - 20x
         public static readonly ErrorObject WrongPostId = new ErrorObject(201, "PostId is wrong");
+        public static readonly ErrorObject ImageAlreadyExists = new ErrorObject(202, "Image already exists");
     }
 
     public class ErrorObject

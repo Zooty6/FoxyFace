@@ -3,4 +3,5 @@ obj
 bin
 .idea
 FoxyFaceAPI/DatabaseAccessTests/data/connectionString.txt
-FoxyFaceAPI/FoxyFaceAPI/data/connectionString.txt
+FoxyFaceAPI/FoxyFaceAPI/data/dbConnectionString.txt
+FoxyFaceAPI/FoxyFaceAPI/data/azureKey.txt
