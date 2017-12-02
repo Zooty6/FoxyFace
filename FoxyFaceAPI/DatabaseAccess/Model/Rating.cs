@@ -12,7 +12,7 @@ namespace DatabaseAccess.Model
 
         public int Stars
         {
-            get => Stars;
+            get => stars;
             set
             {
                 if (value < 0 || value > 5)
@@ -23,21 +23,22 @@ namespace DatabaseAccess.Model
             }
         }
 
-        internal Rating(int id, int postId, int userId)
+        internal Rating(int id, int postId, int userId, int stars)
             : this(id, new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
-                new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)))
+                new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), stars)
         {
         }
 
-        internal Rating(int id, Lazy<Post> post, Lazy<User> user)
+        internal Rating(int id, Lazy<Post> post, Lazy<User> user, int stars)
         {
             Id = id;
             Post = post;
             User = user;
+            Stars = stars;
         }
 
-        internal Rating(int id, Post post, User user)
-            : this(id, new Lazy<Post>(() => post), new Lazy<User>(() => user))
+        internal Rating(int id, Post post, User user, int stars)
+            : this(id, new Lazy<Post>(() => post), new Lazy<User>(() => user), stars)
         {
         }
 
