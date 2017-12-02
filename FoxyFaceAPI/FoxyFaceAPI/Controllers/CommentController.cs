@@ -39,7 +39,7 @@ namespace FoxyFaceAPI.Controllers
             Comment comment = FoxyFaceDbManager.Instance.CommentRepository.Create(postId, session.User.Value.Id, text);
             return Json(new
             {
-                DocumentationCommentId = comment.Id
+                commentId = comment.Id
             });
         }
     }
