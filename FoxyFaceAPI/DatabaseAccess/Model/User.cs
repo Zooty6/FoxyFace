@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Security;
+using Newtonsoft.Json;
 
 namespace DatabaseAccess.Model
 {
@@ -8,8 +9,11 @@ namespace DatabaseAccess.Model
     {
         public int Id { get; }
         public string Username { get; }
+        [JsonIgnore]
         public string Password{ get; }
+        [JsonIgnore]
         public string Email{ get; }
+        [JsonIgnore]
         public string Salt { get; }
 
         internal User(string username, string password, string email)
