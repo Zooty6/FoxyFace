@@ -30,9 +30,9 @@ namespace DatabaseAccess.Repositories
         public User Create(string username, string unencryptedPassword, string email)
         {
             PasswordHasher.Encrypt(out string encodedPassword, out string generatedSalt, unencryptedPassword);
-            
-            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO user (username, password, email, salt) VALUES(@name, @password, @email, @salt)", new MySqlParameter("name", username), new MySqlParameter("password", encodedPassword), new MySqlParameter("email", email) ,new MySqlParameter("salt", generatedSalt));
-
+            int id = (int) FoxyFaceDb.ExecuteNonQuery("INSERT INTO user (username, password, email, salt) VALUES(@name, @password, @email, @salt)", 
+                new MySqlParameter("name", username), new MySqlParameter("password", encodedPassword), 
+                new MySqlParameter("email", email) ,new MySqlParameter("salt", generatedSalt));
             return FindById(id);
         }
 

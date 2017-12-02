@@ -34,7 +34,7 @@ namespace DatabaseAccess.Repositories
             return new Comment(Convert.ToInt32(resultDataTable.Rows[0]["Comment_id"]), Convert.ToInt32(resultDataTable.Rows[0]["post_id"]), Convert.ToInt32(resultDataTable.Rows[0]["user_id"]), (string)resultDataTable.Rows[0]["text"], DateTimeUtils.ConverTo(resultDataTable.Rows[0]["date"]));
         }
 
-        public List<Comment> FindByPost(int postId)
+        public List<Comment> FindByPostId(int postId)
         {
             var comments = new List<Comment>();
             DataTable resultDataTable = FoxyFaceDb.ExecuteReader("SELECT * FROM comment WHERE post_id = @postid",

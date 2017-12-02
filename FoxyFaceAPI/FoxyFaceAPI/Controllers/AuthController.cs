@@ -26,10 +26,8 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            // 1. check if user exists
             if (FoxyFaceDbManager.Instance.UserRepository.FindByName(username) != null)
             {
-                // 2. if exists -> return success: false, error: user exists
                 return Json(new
                 {
                     success = false,
@@ -43,15 +41,25 @@ namespace FoxyFaceAPI.Controllers
                     success = false,
                     error = ErrorObjects.EmailAlreadyExists
                 });
-                // 2. if exists -> return success: false, error: user exists
             }
-            // 3. if not -> insert user into database, return success: true
+            if (HasSpecialCharacter(username))
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = ErrorObjects.WrongUserName
+                });
+            }
+            
             FoxyFaceDbManager.Instance.UserRepository.Create(username, password, email);
             return Json(new
             {
                 success = true
             });
-            
+        }
+        
+        private static bool HasSpecialCharacter(string str) {
+            return str.Any(c => !(c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z'));
         }
         
         // POST api/auth/login
