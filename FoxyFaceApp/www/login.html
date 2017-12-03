@@ -10,7 +10,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com http://localhost:5000 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -49,17 +49,17 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="card deep-orange lighten-4">
-                            <form>
+                            <form id="loginForm" action="http://localhost:5000/api/auth/login" method="post">
                                 <div class="card-content deep-orange-text text-darken-4">
                                     <span class="card-title">Login</span>
                                     <p>
                                         <div class="row">
                                             <div class="input-field col s12">
-                                                <input id="username" class="deep-orange-text text-darken-4" type="text" />
+                                                <input id="username" name="username" class="deep-orange-text text-darken-4" type="text" />
                                                 <label for="username">Username</label>
                                             </div>
                                             <div class="input-field col s12">
-                                                <input id="password" class="deep-orange-text text-darken-4" type="password" />
+                                                <input id="password" name="password" class="deep-orange-text text-darken-4" type="password" />
                                                 <label for="password">Password</label>
                                             </div>
                                         </div>
@@ -85,9 +85,15 @@
     
         
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        
+        <!-- Jquery -->
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.form.min.js"></script>
 
         <!-- Materialize stuff -->
         <script type="text/javascript" src="js/materialize.min.js"></script>
+
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/forms.js"></script>
     </body>
 </html>
