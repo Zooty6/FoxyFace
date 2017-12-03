@@ -45,6 +45,15 @@
     box-shadow: 0 1px 0 0 #ff5722 !important;
 }
 /* label underline color */
+.input-field input[type=email] {
+    border-bottom: 1px solid #ff5722 !important;
+}
+/* label underline focus color */
+.input-field input[type=email]:focus {
+    border-bottom: 1px solid #ff5722 !important;
+    box-shadow: 0 1px 0 0 #ff5722 !important;
+}
+/* label underline color */
 .input-field input[type=password] {
     border-bottom: 1px solid #ff5722 !important;
 }
