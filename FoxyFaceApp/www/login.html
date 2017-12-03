@@ -1,22 +1,4 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <!--
@@ -35,17 +17,15 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         
         <!-- Materialize stuff -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
         
-        <title>Hello World</title>
+        <title>Foxy Face</title>
     </head>
-    <body>
-    
+    <body class="deep-orange lighten-4">
         <header>
             <nav class="deep-orange">
                 <div class="nav-wrapper">
-                    <a href="#!" class="brand-logo">Register</a>
+                    <a href="#!" class="brand-logo">Welcome</a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a href="register.html">Register</a></li>
@@ -60,20 +40,34 @@
                 </div>
             </nav>
         </header>
-        
-        
-        
-        
+
+
         <main>
-            <div class="app">
-                <h1>Apache Cordova</h1>
-                <div id="deviceready" class="blink">
-                    <p class="event listening">Connecting to Device</p>
-                    <p class="event received">Device is Ready</p>
-                </div>
+            <img class="banner" src="img/banner.jpg" />
+            <div class="container">
+                <h2 class="center-align deep-orange-text text-darken-4">Discover the newest and most awesome fox images!</h2>
+                <form>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="username" type="text" />
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="password" type="password" />
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn-flat waves-effect waves-light deep-orange-text text-darken-4" type="submit" name="register">Register
+                            <i class="material-icons right">send</i>
+                        </button>
+                        <button class="btn waves-effect waves-light deep-orange" type="submit" name="login">Login
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </main>
-        
         
         
         
