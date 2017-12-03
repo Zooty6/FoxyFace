@@ -4,13 +4,16 @@
 $(document).ready(function() {
     $("#loginForm").ajaxForm({
         success: function (data) {
-            
             if (data.hasOwnProperty("error")) {
-                alert(data.error.description);
+                M.toast({html: data.error.description});
             } else {
                 var storage = window.localStorage;
-                storage.setItem("token", data.token);   
+                storage.setItem("token", data.token);
+                window.location = "index.html";
             }
+            
+            
+            
         },
         error: function () {
             alert("Couldn't send request...");
