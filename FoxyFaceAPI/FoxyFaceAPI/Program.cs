@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
+//𐲯𐳛𐳛𐳨                                                            
 namespace FoxyFaceAPI
 {
     public class Program
     {
-        
         public static void Main(string[] args)
         {
             FileInfo connectionFile = new FileInfo("data/dbConnectionString.txt");
