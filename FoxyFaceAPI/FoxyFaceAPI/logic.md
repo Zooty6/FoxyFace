@@ -82,3 +82,9 @@ Returns:
 
 Returns:
 * bool: success
+
+## [get] api/browse
+* int: offset
+* int: 0 < amount < 50
+* string: orderBy (date)
+* string: order (asc, desc)

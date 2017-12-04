@@ -43,6 +43,21 @@ namespace DatabaseAccess.Repositories
                 (string)postRow["path"], DateTimeUtils.ConverTo(postRow["date"]));
         }
 
+        public List<Post> FindPosts(int offset = 0, int amount = 50, string orderBy = "Post_id", string order = "asc")
+        {
+            List<Post> posts = new List<Post>();
+            DataTable resultDataTable = FoxyFaceDb.ExecuteReader($"SELECT * FROM post ORDER BY {orderBy} {order} LIMIT {amount} OFFSET {offset}");
+            
+            foreach (DataRow postRow in resultDataTable.Rows)
+            {
+                posts.Add(new Post(Convert.ToInt32(postRow["Post_id"]), Convert.ToInt32(postRow["user_id"]),
+                    (string) postRow["title"], (string) postRow["description"],
+                    (string) postRow["path"], DateTimeUtils.ConverTo(postRow["date"])));
+            }
+
+            return posts;
+        }
+
         public void UpdateTitle(string title, int id)
         {
             FoxyFaceDb.ExecuteNonQuery("UPDATE post SET title = @title WHERE Post_id = @id", new MySqlParameter("title", title), new MySqlParameter("id", id));
