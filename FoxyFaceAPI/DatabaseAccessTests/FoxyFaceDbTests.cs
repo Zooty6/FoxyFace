@@ -93,6 +93,8 @@ namespace DatabaseAccessTests
 
             Assert.AreEqual(lyzeSession, sessionRepo.FindById(lyzeSession.Id));
             Assert.AreEqual(zootySession, sessionRepo.FindByToken(zootySession.Token));
+            
+            Assert.AreEqual(2, postRepo.FindPosts().Count);
         }
 
         [ClassCleanup]
