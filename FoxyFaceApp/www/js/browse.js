@@ -5,8 +5,8 @@ var app = {
 
     onDeviceReady: function() {
         var storage = window.localStorage;
-        if (storage.getItem("token") !== null) {
-            window.location = "browse.html"; 
+        if (storage.getItem("token") === null) {
+            window.location = "index.html"; 
         }
     }
 };
