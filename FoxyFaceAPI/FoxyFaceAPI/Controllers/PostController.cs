@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using DatabaseAccess;
 using DatabaseAccess.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace FoxyFaceAPI.Controllers
 {
@@ -60,7 +64,7 @@ namespace FoxyFaceAPI.Controllers
         }
         
         [HttpPost]
-        public JsonResult Post(string title, string description, IFormFile file, string token)
+        public async Task<JsonResult> Post(string title, string description, IFormFile file, string token)
         {
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(token))
             {
@@ -81,14 +85,28 @@ namespace FoxyFaceAPI.Controllers
             }
 
             Console.WriteLine("Uploading file: " + file.FileName);
-
+            
+            var filePath = Path.Combine("temp", file.FileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create)) {
+                await file.CopyToAsync(fileStream);
+            }
+            
             string blobPath;
             do
             {
                 blobPath = session.User.Value.Username + "/" + random.Next() + "_" + file.FileName;
             } while (CloudStorage.Instance.FileExists(blobPath));
             
+            using (Image<Rgba32> image = Image.Load(filePath))
+            {
+                image.Mutate(x => x.Resize(128, 128 * image.Height / image.Width));
+                MemoryStream memoryStream = new MemoryStream();
+                image.Save(memoryStream, new JpegEncoder());
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                CloudStorage.Instance.UploadFile(blobPath + "thumbnail.jpeg", memoryStream);
+            }
             Uri uri = CloudStorage.Instance.UploadFile(blobPath, file.OpenReadStream()).Result;
+            
 
             Post post = FoxyFaceDbManager.Instance.PostRepository.Create(session.User.Value, title, description, uri.ToString());
             return Json(new
