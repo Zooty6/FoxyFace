@@ -1,19 +1,7 @@
-
-var forms = {
-    initialize: function () {
-        console.log("hi");
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-
-    onDeviceReady: function () {
-        console.log("hi");
-        createLoginForm();
-        createRegisterForm();
-    }
-};
-
-forms.initialize();
-
+$(document).ready(function () {
+    createLoginForm();
+    createRegisterForm();
+});
 
 function createLoginForm() {
     console.log("creating login form");
