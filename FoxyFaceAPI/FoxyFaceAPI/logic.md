@@ -14,7 +14,7 @@ Parameters:
 * string: email
 
 Returns:
-* bool: success
+* string: token
 
 ## [post] api/auth/login
 

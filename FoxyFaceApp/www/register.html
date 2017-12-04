@@ -1,101 +1,118 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        
-        <!-- Materialize stuff -->
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-        
-        <title>Foxy Face</title>
-    </head>
-    <body class="deep-orange lighten-4">
-        <header>
-            <nav class="deep-orange">
-                <div class="nav-wrapper">
-                    <a href="index.html" class="brand-logo">Welcome</a>
-                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                    <ul class="right hide-on-med-and-down">
-                        <li><a href="register.html">Register</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="browse.html">Browse</a></li>
-                    </ul>
-                    <ul class="sidenav" id="mobile-demo">
-                        <li><a href="register.html">Register</a></li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="browse.html">Browse</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+<head>
+    <!--
+    Customize this policy to fit your own app's needs. For more guidance, see:
+        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+    Some notes:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com http://localhost:5000 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- Materialize stuff -->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+
+    <title>Foxy Face</title>
+</head>
+<body class="deep-orange lighten-4">
+<header>
+    <nav class="deep-orange">
+        <div class="nav-wrapper">
+            <a href="index.html" class="brand-logo">Welcome</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="browse.html">Browse</a></li>
+            </ul>
+            <ul class="sidenav" id="mobile-demo">
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="browse.html">Browse</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
 
-        <main>
-            <img class="banner" src="img/banner.jpg" />
-            <div class="container">
+<main>
+    <img class="banner" src="img/banner.jpg"/>
+    <div class="container">
 
-                <div class="row">
-                    <div class="col s12">
-                        <div class="card deep-orange lighten-4">
-                            <form>
-                                <div class="card-content deep-orange-text text-darken-4">
-                                    <span class="card-title">Register</span>
-                                    <p>
-                                        <div class="row">
-                                            <div class="input-field col s12">
-                                                <input id="username" class="deep-orange-text text-darken-4" type="text" />
-                                                <label for="username">Username</label>
-                                            </div>
-                                            <div class="input-field col s12">
-                                                <input id="email" class="deep-orange-text text-darken-4" type="email" />
-                                                <label for="email">Email</label>
-                                            </div>
-                                            <div class="input-field col s12">
-                                                <input id="password" class="deep-orange-text text-darken-4" type="password" />
-                                                <label for="password">Password</label>
-                                            </div>
-                                            <div class="input-field col s12">
-                                                <input id="passwordRetype" class="deep-orange-text text-darken-4" type="password" />
-                                                <label for="passwordRetype">Retype Password</label>
-                                            </div>
-                                        </div>
-                                    </p>
+        <div class="row">
+            <div class="col s12">
+                <div class="card deep-orange lighten-4">
+                    <form id="registerForm" action="http://localhost:5000/api/auth/register" method="post">
+                        <div class="card-content deep-orange-text text-darken-4">
+                            <span class="card-title">Register</span>
+                            <p>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="username" name="username" class="deep-orange-text text-darken-4" type="text"/>
+                                    <label for="username">Username</label>
                                 </div>
-                                <div class="card-action">
-                                    <button class="btn waves-effect waves-light deep-orange" type="submit" name="login">Register
-                                        <i class="material-icons right">send</i>
-                                    </button>
+                                <div class="input-field col s12">
+                                    <input id="email" name="email" class="deep-orange-text text-darken-4" type="email"/>
+                                    <label for="email">Email</label>
                                 </div>
-                            </form>
+                                <div class="input-field col s12">
+                                    <input id="password" name="password" class="deep-orange-text text-darken-4" type="password"/>
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input id="passwordRetype" name="passwordRetype" class="deep-orange-text text-darken-4" type="password"/>
+                                    <label for="passwordRetype">Retype Password</label>
+                                </div>
+                            </div>
+                            </p>
                         </div>
-                    </div>
+                        <div class="card-action">
+                            <button class="btn waves-effect waves-light deep-orange" type="submit" name="login">Register
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </main>
-        
-        
-        
-        <footer>
-            
-        </footer>
-    
-        
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        </div>
+    </div>
+</main>
 
-        <!-- Materialize stuff -->
-        <script type="text/javascript" src="js/materialize.min.js"></script>
-    </body>
+
+<div class="invisible">
+    <form id="loginForm" action="http://localhost:5000/api/auth/login" method="post">
+        <input name="username" class="deep-orange-text text-darken-4" type="text"/>
+        <input name="password" class="deep-orange-text text-darken-4" type="password"/>
+    </form>
+</div>
+
+
+<footer>
+
+</footer>
+
+
+
+<script type="text/javascript" src="cordova.js"></script>
+
+<!-- Jquery -->
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.form.min.js"></script>
+
+<!-- Materialize stuff -->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/forms.js"></script>
+
+
+</body>
 </html>

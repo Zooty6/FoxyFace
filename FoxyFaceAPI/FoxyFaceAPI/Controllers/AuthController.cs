@@ -52,10 +52,7 @@ namespace FoxyFaceAPI.Controllers
             }
             
             FoxyFaceDbManager.Instance.UserRepository.Create(username, password, email);
-            return Json(new
-            {
-                success = true
-            });
+            return Login(username, password);
         }
         
         private static bool HasSpecialCharacter(string str) {

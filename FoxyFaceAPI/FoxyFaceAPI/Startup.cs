@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -36,7 +37,9 @@ namespace FoxyFaceAPI
             }
 
             app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:8001"));
+                builder.WithOrigins("http://localhost:8000"));
+            
+            
 
             app.UseMvc();
         }
