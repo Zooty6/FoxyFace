@@ -86,8 +86,8 @@ namespace FoxyFaceAPI.Controllers
 
             Console.WriteLine("Uploading file: " + file.FileName);
             
-            var filePath = Path.Combine("temp", file.FileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create)) {
+            var tempFilePath = Path.Combine("temp", file.FileName);
+            using (var fileStream = new FileStream(tempFilePath, FileMode.Create)) {
                 await file.CopyToAsync(fileStream);
             }
             
@@ -97,7 +97,7 @@ namespace FoxyFaceAPI.Controllers
                 blobPath = session.User.Value.Username + "/" + random.Next() + "_" + file.FileName;
             } while (CloudStorage.Instance.FileExists(blobPath));
             
-            using (Image<Rgba32> image = Image.Load(filePath))
+            using (Image<Rgba32> image = Image.Load(tempFilePath))
             {
                 image.Mutate(x => x.Resize(128, 128 * image.Height / image.Width));
                 MemoryStream memoryStream = new MemoryStream();
@@ -105,6 +105,7 @@ namespace FoxyFaceAPI.Controllers
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 CloudStorage.Instance.UploadFile(blobPath + "thumbnail.jpeg", memoryStream);
             }
+            System.IO.File.Delete(tempFilePath);
             Uri uri = CloudStorage.Instance.UploadFile(blobPath, file.OpenReadStream()).Result;
             
 
