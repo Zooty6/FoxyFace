@@ -72,5 +72,15 @@ namespace DatabaseAccess.Repositories
         {
             FoxyFaceDb.ExecuteNonQuery("DELETE FROM post WHERE id = @id", new MySqlParameter("id", postId));
         }
+
+        public int GetTotalCountOfPosts()
+        {
+            DataTable resultDataTable = FoxyFaceDb.ExecuteReader("SELECT count(*) FROM post");
+            if (resultDataTable.Rows.Count==0)
+            {
+                return -1;
+            }
+            return Convert.ToInt32(resultDataTable.Rows[0][0]);
+        }
     }
 }

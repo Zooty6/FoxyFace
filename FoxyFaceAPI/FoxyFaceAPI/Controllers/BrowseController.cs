@@ -44,7 +44,8 @@ namespace FoxyFaceAPI.Controllers
             List<Post> posts = FoxyFaceDbManager.Instance.PostRepository.FindPosts(offset, amount, orderBy);
             return Json(new
             {
-                posts
+                posts = posts,
+                totalPosts = FoxyFaceDbManager.Instance.PostRepository.GetTotalCountOfPosts()
             });
         }
     }
