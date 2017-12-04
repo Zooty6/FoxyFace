@@ -13,13 +13,13 @@ $(document).ready(function () {
             offset: 0,
             amount: 50,
             orderBy: "date",
-            order: "asc",
+            order: "desc",
             token: token
         },
         success: function (data) {
             var gallery = $("#galleryContainer");
-            for (var post in data.posts) {
-                gallery.append(createImage(data.posts[post]));
+            for (var index in data.posts) {
+                gallery.append(createImage(data.posts[index]));
             }
         },
         dataType: "json"
@@ -30,7 +30,7 @@ $(document).ready(function () {
 function createImage(post) {
     return  '<div class="gallery">' +
                 '<a href="' + post.path + '">' +
-                    '<img src="' + post.path + "thumbnail.jpg" + '" alt="' + post.title + '">' +
+                    '<img src="' + post.path + "thumbnail.jpeg" + '" alt="' + post.title + '">' +
                 '</a>' +
                 '<div class="desc">' + post.description + '</div>' +
             '</div>';
