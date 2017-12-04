@@ -100,7 +100,11 @@ namespace FoxyFaceAPI.Controllers
             {
                 using (Image<Rgba32> image = Image.Load(tempMemoryStream))
                 {
-                    image.Mutate(x => x.Resize(180, 180 * image.Height / image.Width));
+                    if (image.Width > image.Height)
+                        image.Mutate(x => x.Resize(180, 180 * image.Height / image.Width));
+                    else
+                        image.Mutate(x => x.Resize(180 * image.Width / image.Height, 180));
+                    
                     MemoryStream thumbnailTempMemoryStream = new MemoryStream();
                     image.Save(thumbnailTempMemoryStream, new JpegEncoder());
                     thumbnailTempMemoryStream.Seek(0, SeekOrigin.Begin);
