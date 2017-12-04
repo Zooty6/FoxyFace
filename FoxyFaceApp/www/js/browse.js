@@ -5,7 +5,7 @@ $(document).ready(function () {
     if (token === null) {
         window.location = "index.html";
     }
-    
+
     // fetch images
     $.ajax({
         url: "http://localhost:5000/api/browse",
@@ -17,10 +17,15 @@ $(document).ready(function () {
             token: token
         },
         success: function (data) {
-            var gallery = $("#galleryContainer");
-            for (var index in data.posts) {
-                gallery.append(createImage(data.posts[index]));
+            if (!showError(data)) {
+                var gallery = $("#galleryContainer");
+                for (var index in data.posts) {
+                    gallery.append(createImage(data.posts[index]));
+                }
             }
+        },
+        error: function () {
+            showError({error: {description: "Couldn't connect to server"}});
         },
         dataType: "json"
     });
@@ -28,10 +33,12 @@ $(document).ready(function () {
 
 
 function createImage(post) {
-    return  '<div class="gallery">' +
+    return  '<div class="galleryItem">' + 
                 '<a href="' + post.path + '">' +
-                    '<img src="' + post.path + "thumbnail.jpeg" + '" alt="' + post.title + '">' +
+                    '<div class="imageContainer">' +
+                        '<img src="' + post.path + "thumbnail.jpeg" + '">' +
+                    '</div>' +
+                    '<div>' + post.title + '</div>' +
                 '</a>' +
-                '<div class="desc">' + post.description + '</div>' +
             '</div>';
 }

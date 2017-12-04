@@ -15,11 +15,11 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport"
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
 
-    <!-- Materialize stuff -->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
 
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    
     <title>Foxy Face</title>
 </head>
 <body class="deep-orange lighten-4">
@@ -40,9 +40,16 @@
     <div class="container" id="galleryContainer"></div>
 </main>
 
-
-<footer>
-
+<footer >
+    <ul class="pagination">
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="active"><a href="#!">1</a></li>
+        <li class="waves-effect"><a href="#!">2</a></li>
+        <li class="waves-effect"><a href="#!">3</a></li>
+        <li class="waves-effect"><a href="#!">4</a></li>
+        <li class="waves-effect"><a href="#!">5</a></li>
+        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
 </footer>
 
 <script type="text/javascript" src="cordova.js"></script>
