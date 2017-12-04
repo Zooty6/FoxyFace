@@ -10,8 +10,7 @@
         * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
             * Enable inline JS: add 'unsafe-inline' to default-src
     -->
-    <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com http://localhost:5000 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport"
@@ -38,25 +37,7 @@
 
 <main>
     <img class="banner" src="img/banner.jpg"/>
-    <div class="container">
-
-        <div class="row">
-            <div class="col s12">
-                <div class="card deep-orange lighten-4">
-                    <div class="card-content deep-orange-text text-darken-4">
-                        <span class="card-title">Browse</span>
-                        <p>
-                            Discover the newest and most awesome fox images!
-                        </p>
-                    </div>
-                    <div class="card-action">
-                        <a class="waves-effect waves-light btn-fat deep-orange-text text-darken-4" href="register.html">Register</a>
-
-                        <a class="waves-effect waves-light btn deep-orange" href="login.html">Login</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container" id="galleryContainer">
     </div>
 </main>
 
@@ -65,12 +46,17 @@
 
 </footer>
 
-
 <script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript" src="js/browse.js"></script>
+
+<!-- Jquery -->
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.form.min.js"></script>
 
 <!-- Materialize stuff -->
 <script type="text/javascript" src="js/materialize.min.js"></script>
+
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/forms.js"></script>
+<script type="text/javascript" src="js/browse.js"></script>
 </body>
 </html>
