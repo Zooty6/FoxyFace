@@ -62,7 +62,7 @@ function createImage(post) {
                 '<div class="card-content">' +
                     '<span class="card-title activator grey-text text-darken-4">' + post.title + '<i class="material-icons right">more_vert</i></span>' +
                 '</div>' +
-                '<div class="card-reveal">' +
+                '<div class="card-reveal">' + 
                     '<span class="card-title grey-text text-darken-4">' + post.title + '<i class="material-icons right">close</i></span>' +
                     '<div class="divider"></div>' + 
                     '<p>' + post.description + '</p>' +
