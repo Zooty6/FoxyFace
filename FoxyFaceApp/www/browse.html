@@ -10,7 +10,8 @@
         * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
             * Enable inline JS: add 'unsafe-inline' to default-src
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com http://localhost:5000 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' https://foxyfacestorage.blob.core.windows.net data: content:;">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self' data: gap: https://ssl.gstatic.com http://localhost:5000 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' https://foxyfacestorage.blob.core.windows.net data: content:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport"
@@ -19,7 +20,7 @@
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
 
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    
+
     <title>Foxy Face</title>
 </head>
 <body class="deep-orange lighten-4">
@@ -37,7 +38,9 @@
 
 <main>
     <img class="banner" src="img/banner.jpg"/>
-    <div class="container" id="galleryContainer"></div>
+    <div class="container" id="galleryContainer">
+        
+    </div>
 </main>
 
 <footer class="center-align">

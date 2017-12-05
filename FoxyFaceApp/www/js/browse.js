@@ -7,7 +7,7 @@ $(document).ready(function () {
     }
 
     // fetch images
-    var amountOnPage = 20;
+    var amountOnPage = 10;
     
     var currentUrl = new URL(window.location);
     var currentPage = currentUrl.searchParams.get("page");
@@ -53,12 +53,17 @@ $(document).ready(function () {
 
 
 function createImage(post) {
-    return '<div class="galleryItem">' +
-        '<a href="' + post.path + '">' +
-        '<div class="imageContainer">' +
-        '<img src="' + post.path + "thumbnail.jpeg" + '">' +
-        '</div>' +
-        '<div>' + post.title + '</div>' +
-        '</a>' +
-        '</div>';
+    return  '<div class="card galleryItem">' +
+                '<div class="card-image waves-effect waves-block waves-light">' +
+                    '<img src="' + post.path  + 'thumbnail.jpeg">' +
+                '</div>' +
+                '<div class="card-content">' +
+                    '<span class="card-title activator grey-text text-darken-4">' + post.title + '<i class="material-icons right">more_vert</i></span>' +
+                '</div>' +
+                '<div class="card-reveal">' +
+                    '<span class="card-title grey-text text-darken-4">' + post.title + '<i class="material-icons right">close</i></span>' +
+                    '<div class="divider"></div>' + 
+                    '<p>' + post.description + '</p>' +
+                '</div>' +
+            '</div>';
 }
