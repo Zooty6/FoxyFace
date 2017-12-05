@@ -5,6 +5,7 @@ $(document).ready(function () {
 
 function setupMaterialize() {
     $('.sidenav').sidenav();
+    $('.materialboxed').materialbox();
 }
 
 function setupNav() {

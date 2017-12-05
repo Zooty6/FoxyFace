@@ -131,3 +131,9 @@
 .pagination li.active span {
     color: white !important;
 }
+
+
+/* image */
+#image {
+    width: 100%;
+}

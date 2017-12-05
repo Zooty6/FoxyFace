@@ -54,9 +54,11 @@ $(document).ready(function () {
 
 function createImage(post) {
     return  '<div class="card galleryItem">' +
-                '<div class="card-image waves-effect waves-block waves-light">' +
-                    '<img src="' + post.path  + 'thumbnail.jpeg">' +
-                '</div>' +
+                '<a href="view.html?id=' + post.id + '">' +
+                    '<div class="card-image waves-effect waves-block waves-light">' +
+                        '<img src="' + post.path  + 'thumbnail.jpeg">' +
+                    '</div>' +
+                '</a>' +
                 '<div class="card-content">' +
                     '<span class="card-title activator grey-text text-darken-4">' + post.title + '<i class="material-icons right">more_vert</i></span>' +
                 '</div>' +
