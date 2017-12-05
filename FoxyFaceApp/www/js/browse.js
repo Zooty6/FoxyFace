@@ -7,11 +7,19 @@ $(document).ready(function () {
     }
 
     // fetch images
+    var amountOnPage = 20;
+    
+    var currentUrl = new URL(window.location);
+    var currentPage = currentUrl.searchParams.get("page");
+    if (currentPage === null) {
+        currentPage = 1;
+    }
+    
     $.ajax({
         url: "http://localhost:5000/api/browse",
         data: {
-            offset: 0,
-            amount: 50,
+            offset: amountOnPage * (currentPage-1),
+            amount: amountOnPage,
             orderBy: "date",
             order: "desc",
             token: token
@@ -22,6 +30,17 @@ $(document).ready(function () {
                 for (var index in data.posts) {
                     gallery.append(createImage(data.posts[index]));
                 }
+
+                $(".pagination").pagination({
+                    items: data.totalPosts,
+                    itemsOnPage: amountOnPage,
+                    currentPage: currentPage,
+                    prevText:"<i class='material-icons'>chevron_left</i>",
+                    nextText:"<i class='material-icons'>chevron_right</i>",
+                    onPageClick: function (pageNumber, event) {
+                        window.location = "browse.html?page=" + pageNumber
+                    }
+                });
             }
         },
         error: function () {
@@ -29,16 +48,17 @@ $(document).ready(function () {
         },
         dataType: "json"
     });
+
 });
 
 
 function createImage(post) {
-    return  '<div class="galleryItem">' + 
-                '<a href="' + post.path + '">' +
-                    '<div class="imageContainer">' +
-                        '<img src="' + post.path + "thumbnail.jpeg" + '">' +
-                    '</div>' +
-                    '<div>' + post.title + '</div>' +
-                '</a>' +
-            '</div>';
+    return '<div class="galleryItem">' +
+        '<a href="' + post.path + '">' +
+        '<div class="imageContainer">' +
+        '<img src="' + post.path + "thumbnail.jpeg" + '">' +
+        '</div>' +
+        '<div>' + post.title + '</div>' +
+        '</a>' +
+        '</div>';
 }

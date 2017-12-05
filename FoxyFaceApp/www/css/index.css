@@ -22,53 +22,55 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-
-
-
 /* Text Area */
 
 /* label color */
 .input-field label {
     color: #ff5722 !important;
 }
+
 /* label focus color */
 .input-field input[type=text]:focus + label {
     color: #ff5722 !important;;
 }
+
 /* label underline color */
 .input-field input[type=text] {
     border-bottom: 1px solid #ff5722 !important;
 }
+
 /* label underline focus color */
 .input-field input[type=text]:focus {
     border-bottom: 1px solid #ff5722 !important;
     box-shadow: 0 1px 0 0 #ff5722 !important;
 }
+
 /* label underline color */
 .input-field input[type=email] {
     border-bottom: 1px solid #ff5722 !important;
 }
+
 /* label underline focus color */
 .input-field input[type=email]:focus {
     border-bottom: 1px solid #ff5722 !important;
     box-shadow: 0 1px 0 0 #ff5722 !important;
 }
+
 /* label underline color */
 .input-field input[type=password] {
     border-bottom: 1px solid #ff5722 !important;
 }
+
 /* label underline focus color */
 .input-field input[type=password]:focus {
     border-bottom: 1px solid #ff5722 !important;
     box-shadow: 0 1px 0 0 #ff5722 !important;
 }
+
 /* icon prefix focus color */
 .input-field .prefix.active {
     color: #ff5722 !important;;
 }
-
-
-
 
 .banner {
     width: 100%;
@@ -81,7 +83,6 @@
 .invisible {
     visibility: hidden;
 }
-
 
 /* gallery */
 
@@ -105,4 +106,14 @@
 .imageContainer {
     width: 180px;
     height: 180px;
+}
+
+/* pagination fix */
+
+.pagination li span {
+    color: #444;
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    line-height: 30px;
 }
