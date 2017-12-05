@@ -1,6 +1,16 @@
 $(document).ready(function () {
-    createSubmitForm();    
+    createSubmitForm();
+    createCameraButton();    
 });
+
+function createCameraButton() {
+    $("#cameraButton").click(function () {
+        camera.getPicture(function (file) {
+            debugger;
+            $("#fileButton").val(file);
+        });
+    });
+}
 
 function createSubmitForm() {
     var storage = window.localStorage;
