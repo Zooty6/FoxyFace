@@ -5,10 +5,12 @@ $(document).ready(function () {
 
 function createCameraButton() {
     $("#cameraButton").click(function () {
-        camera.getPicture(function (file) {
+        navigator.camera.getPicture(function (file) {
             debugger;
-            $("#fileButton").val(file);
-        });
+            $(".fileButton").each(function () {
+               $(this).val(file); 
+            });
+        },function (message) {  }, {});
     });
 }
 
