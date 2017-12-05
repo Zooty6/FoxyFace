@@ -66,7 +66,7 @@ namespace FoxyFaceAPI.Controllers
         [HttpPost]
         public async Task<JsonResult> Post(string title, string description, IFormFile file, string token)
         {
-            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(token))
+            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(token) || file == null)
             {
                 return Json(new
                 {

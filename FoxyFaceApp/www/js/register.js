@@ -9,7 +9,7 @@ function createRegisterForm() {
             if (!showError(data)) {
                 var storage = window.localStorage;
                 storage.setItem("token", data.token);
-                window.location = "index.html";
+                window.location = "browse.html";
             }
         },
         error: function () {
