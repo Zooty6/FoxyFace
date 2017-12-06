@@ -49,7 +49,16 @@ namespace DatabaseAccess
                                 }
                                 catch (Exception)
                                 {
-                                    throw new ArgumentException("Couldn't find proper format for datetime: " + datetime);                                      
+                                    try
+                                    {
+                                        if (DateTime.TryParse((string) datetime, out DateTime ret))
+                                            return ret;
+                                        throw new Exception();
+                                    }
+                                    catch (Exception)
+                                    {
+                                        throw new ArgumentException("Couldn't find proper format for datetime: " + datetime);   
+                                    }                                      
                                 }
                             } 
                         }
