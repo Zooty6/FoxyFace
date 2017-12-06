@@ -35,7 +35,23 @@ namespace DatabaseAccess
                         }
                         catch (Exception)
                         {
-                            throw new ArgumentException("Couldn't find proper format for datetime: " + datetime);   
+                            try
+                            {
+                                return DateTime.ParseExact((string) datetime, "MM/dd/yyyy hh:mm:ss tt",
+                                    System.Globalization.CultureInfo.InvariantCulture);
+                            }
+                            catch (Exception)
+                            {
+                                try
+                                {
+                                    return DateTime.ParseExact((string) datetime, "G",
+                                        System.Globalization.CultureInfo.InvariantCulture);
+                                }
+                                catch (Exception)
+                                {
+                                    throw new ArgumentException("Couldn't find proper format for datetime: " + datetime);                                      
+                                }
+                            } 
                         }
                     }
                 }
