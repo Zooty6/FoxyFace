@@ -25,6 +25,15 @@ function setupNav() {
 
 function showError(data) {
     if (data.hasOwnProperty("error")) {
+        
+        if (data.error.errorId === 2) {
+            setTimeout(function () {
+                var storage = window.localStorage;
+                storage.removeItem("token");
+                window.location = "index.html";
+            }, 2000);
+        }
+        
         M.toast({html: data.error.description});
         return true;
     }

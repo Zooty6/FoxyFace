@@ -60,10 +60,10 @@ function createImage(post) {
                     '</div>' +
                 '</a>' +
                 '<div class="card-content">' +
-                    '<span class="card-title activator grey-text text-darken-4">' + post.title + '<i class="material-icons right">more_vert</i></span>' +
+                    '<span class="card-title activator grey-text text-darken-4 truncate"><i class="material-icons right">more_vert</i>' + post.title + '</span>' +
                 '</div>' +
                 '<div class="card-reveal">' + 
-                    '<span class="card-title grey-text text-darken-4">' + post.title + '<i class="material-icons right">close</i></span>' +
+                    '<span class="card-title grey-text text-darken-4 truncate"><i class="material-icons right">close</i>' + post.title + '</span>' +
                     '<div class="divider"></div>' + 
                     '<p>' + post.description + '</p>' +
                 '</div>' +

@@ -107,14 +107,26 @@
     color: #ff5722;
 }
 
-.imageContainer {
-    width: 180px;
-    height: 180px;
+.galleryItem {
+    width: 137px !important;
+}
+
+.galleryItem .card-content {
+    padding: 4px !important;
+}
+
+.galleryItem .card-title {
+    font-size: inherit !important;
+    font-weight: inherit !important;
+}
+
+.galleryItem .card-reveal {
+    padding: 4px !important;
 }
 
 
 
-/* pagination fix */
+    /* pagination fix */
 
 .pagination li span {
     color: #444;
