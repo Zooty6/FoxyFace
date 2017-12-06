@@ -38,7 +38,7 @@
 
 <main>
     <img class="banner" src="img/banner.jpg"/>
-    
+
     <div class="container">
 
         <div class="card" id="viewCard">
@@ -51,7 +51,7 @@
                 <p class="card-description"></p>
             </div>
             <div class="card-action">
-                
+
             </div>
         </div>
 
@@ -65,21 +65,60 @@
                 <div class="collapsible-body" id="ratings"></div>
             </li>
         </ul>
-        
+
     </div>
 </main>
 
-<script type="text/javascript" src="cordova.js"></script>
 
-<!-- Jquery -->
-<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.form.min.js"></script>
-<script type="text/javascript" src="js/jquery.simplePagination.js"></script>
+<footer>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red">
+            <i class="large material-icons">share</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating waves-effect waves-light yellow darken-1" id="shareButton"><i
+                    class="material-icons">share</i></a></li>
+            <li><a class="btn-floating waves-effect waves-light green modal-trigger" id="rateButton" href="#rate"><i
+                    class="material-icons">rate_review</i></a></li>
+            <li><a class="btn-floating waves-effect waves-light red modal-trigger" id="commentButton" href="#comment"><i
+                    class="material-icons">mode_edit</i></a></li>
+        </ul>
+    </div>
+</footer>
 
-<!-- Materialize stuff -->
-<script type="text/javascript" src="js/materialize.min.js"></script>
 
-<script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript" src="js/view.js"></script>
+<div class="modals">
+    <div id="comment" class="modal">
+        <form id="commentForm" action="http://localhost:5000/api/comment" method="post">
+            <div class="modal-content">
+                <h4>Comment</h4>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea" name="text"></textarea>
+                        <label for="textarea1">Textarea</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-action modal-close btn waves-effect waves-light deep-orange" type="submit" name="comment">Comment
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <!-- Jquery -->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.form.min.js"></script>
+    <script type="text/javascript" src="js/jquery.simplePagination.js"></script>
+
+    <!-- Materialize stuff -->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/view.js"></script>
 </body>
 </html>

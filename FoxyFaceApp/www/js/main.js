@@ -7,6 +7,12 @@ function setupMaterialize() {
     $('.sidenav').sidenav();
     $('.materialboxed').materialbox();
     $('.collapsible').collapsible();
+    $('.fixed-action-btn').floatingActionButton({
+        direction: 'top', // Direction menu comes out
+        hoverEnabled: true, // Hover enabled
+        toolbarEnabled: false // Toolbar transition enabled
+    });
+    $('.modal').modal();
 }
 
 function setupNav() {

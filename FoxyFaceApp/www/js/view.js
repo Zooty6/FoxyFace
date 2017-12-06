@@ -21,44 +21,18 @@ $(document).ready(function () {
         },
         success: function (data) {
             if (!showError(data)) {
-                var card = $("#viewCard");
-                
-                var image = card.find("img");
-                image.attr("src", data.path);
-                image.attr("alt", data.title);
-                
-                var title = card.find(".card-title");
-                title.text(data.title);
 
-                var author = card.find(".card-author");
-                author.text(data.user.username);
+                createImage(data);
+                createComments(data);
+                createRatings(data);
                 
-                var description = card.find(".card-description");
-                description.text(data.description);
+                createFabs();
 
 
-                var action = $(".card-action");
-                var totalStars = 0;
-                for (var ratingsIndex in data.ratings) {
-                    var rating = data.ratings[ratingsIndex];
-                    totalStars += rating.stars;
-                }
-                var avgStars = totalStars / data.ratings.length;
-                action.html(calculateStars(avgStars));
-                
-                
-                
-                
-                var comments = $("#comments");
-                for (var commentIndex in data.comments) {
-                    comments.append(createComment(data.comments[commentIndex]));   
-                }
+                createCommentForm(token, imageId);
 
 
-                var ratings = $("#ratings");
-                for (ratingsIndex in data.ratings) {
-                    ratings.append(createRating(data.ratings[ratingsIndex]));
-                }
+                
             }
         },
         error: function () {
@@ -68,6 +42,71 @@ $(document).ready(function () {
     });
 });
 
+function createFabs() {
+    $("#shareButton").click(function () {
+
+    });
+    
+}
+
+function createCommentForm(token, imageId) {    
+    $("#commentForm").ajaxForm({
+        success: function (data) {
+            if (!showError(data)) {
+                window.location.reload();
+            }
+        },
+        error: function () {
+            alert("Couldn't send request...");
+        },
+        dataType: 'json',
+        data: {
+            token: token, 
+            postId: imageId
+        }
+    });
+}
+
+function createImage(data) {
+    var card = $("#viewCard");
+
+    var image = card.find("img");
+    image.attr("src", data.path);
+    image.attr("alt", data.title);
+
+    var title = card.find(".card-title");
+    title.text(data.title);
+
+    var author = card.find(".card-author");
+    author.text(data.user.username);
+
+    var description = card.find(".card-description");
+    description.text(data.description);
+
+
+    var action = $(".card-action");
+    var totalStars = 0;
+    for (var ratingsIndex in data.ratings) {
+        var rating = data.ratings[ratingsIndex];
+        totalStars += rating.stars;
+    }
+    var avgStars = totalStars / data.ratings.length;
+    action.html(calculateStars(avgStars));
+}
+
+function createComments(data) {
+    var comments = $("#comments");
+    for (var commentIndex in data.comments) {
+        comments.append(createComment(data.comments[commentIndex]));
+    }
+}
+
+function createRatings(data) {
+    var ratings = $("#ratings");
+    for (var ratingsIndex in data.ratings) {
+        ratings.append(createRating(data.ratings[ratingsIndex]));
+    }
+}
 
 function createComment(comment) {
     return  '<div class="card">' +
