@@ -35,7 +35,16 @@ $(document).ready(function () {
                 
                 var description = card.find(".card-description");
                 description.text(data.description);
-                
+
+
+                var action = $(".card-action");
+                var totalStars = 0;
+                for (var ratingsIndex in data.ratings) {
+                    var rating = data.ratings[ratingsIndex];
+                    totalStars += rating.stars;
+                }
+                var avgStars = totalStars / data.ratings.length;
+                action.html(calculateStars(avgStars));
                 
                 
                 
@@ -43,6 +52,12 @@ $(document).ready(function () {
                 var comments = $("#comments");
                 for (var commentIndex in data.comments) {
                     comments.append(createComment(data.comments[commentIndex]));   
+                }
+
+
+                var ratings = $("#ratings");
+                for (ratingsIndex in data.ratings) {
+                    ratings.append(createRating(data.ratings[ratingsIndex]));
                 }
             }
         },
@@ -63,4 +78,36 @@ function createComment(comment) {
                 '</p>' +
                 '</div>' +
             '</div>'
+}
+
+function createRating(rating) {
+    var stars = "";
+    for (var i = 0; i < rating.stars; i++) {
+        stars += "<i class='material-icons'>star</i>";
+    }
+    for (i = 0; i < 5 - rating.stars; i++) {
+        stars += "<i class='material-icons'>star_border</i>";
+    }
+    
+    
+    
+    return  '<div class="card">' +
+        '<div class="card-content">' +
+        '<span class="card-title">' + rating.user.value.username + '</span>' +
+            '<p>' +
+                stars +
+            '</p>' +
+        '</div>' +
+        '</div>'
+}
+
+function calculateStars(stars) {
+    var ret = "";
+    for (var i = 0; i < stars; i++) {
+        ret += "<i class='material-icons'>star</i>";
+    }
+    for (i = 0; i < 5 - stars; i++) {
+        ret += "<i class='material-icons'>star_border</i>";
+    }
+    return ret;
 }

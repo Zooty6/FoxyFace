@@ -49,7 +49,7 @@ namespace DatabaseAccess.Repositories
             foreach (DataRow row in executeReader.Rows)
             {
                 rates.Add(new Rating(Convert.ToInt32(row["Rating_id"]), Convert.ToInt32(row["post_id"]),
-                    Convert.ToInt32(row["user_id"]), Convert.ToInt32(executeReader.Rows[0]["stars"])));
+                    Convert.ToInt32(row["user_id"]), Convert.ToInt32(row["stars"])));
             }
 
             return rates;
