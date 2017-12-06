@@ -17,6 +17,7 @@ namespace FoxyFaceAPI.Controllers
         [HttpPost("register")]
         public JsonResult Register(string username, string password, string email)
         {
+            Console.WriteLine(username + "/" + password + "/" + email);
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))
             {
                 return Json(new
