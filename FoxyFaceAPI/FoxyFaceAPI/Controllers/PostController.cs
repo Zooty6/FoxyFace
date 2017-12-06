@@ -57,6 +57,7 @@ namespace FoxyFaceAPI.Controllers
             {
                 title = post.Title,
                 description = post.Description,
+                user = post.User.Value,
                 path = post.Path,
                 ratings = listOfRatings,
                 comments = listOfComments

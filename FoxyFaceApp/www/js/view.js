@@ -21,9 +21,22 @@ $(document).ready(function () {
         },
         success: function (data) {
             if (!showError(data)) {
-                var image = $("#image");
+                var card = $("#viewCard");
+                
+                var image = card.find("img");
                 image.attr("src", data.path);
                 image.attr("alt", data.title);
+                
+                var title = card.find(".card-title");
+                title.text(data.title);
+
+
+                var author = card.find(".card-author");
+                author.text(data.user.username);
+                
+                var description = card.find(".card-description");
+                description.text(data.description);
+                
             }
         },
         error: function () {

@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 
 function createImage(post) {
-    return  '<div class="card galleryItem">' +
+    return  '<div class="card galleryItem hoverable">' +
                 '<a href="view.html?id=' + post.id + '">' +
                     '<div class="card-image waves-effect waves-block waves-light">' +
                         '<img src="' + post.path  + 'thumbnail.jpeg">' +
