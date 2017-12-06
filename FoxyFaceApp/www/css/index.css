@@ -149,3 +149,71 @@
 #image {
     width: 100%;
 }
+
+
+
+
+/* star rating */
+
+.rating {
+    overflow: hidden;
+    display: inline-block;
+}
+
+.rating-input {
+    float: right;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0 0 0 -36px;
+    opacity: 0;
+}
+
+.rating-star {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 36px;
+    height: 36px;
+    background: url('../img/star.png') 0 -36px;
+}
+
+.rating-star:hover {
+    background-position: 0 0;
+}
+
+.rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 36px;
+    height: 36px;
+    background: url('../img/star.png') 0 -36px;
+}
+
+.rating-star:hover,
+.rating-star:hover ~ .rating-star {
+    background-position: 0 0;
+}
+
+.rating-star:hover,
+.rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+
+.rating:hover .rating-star:hover,
+.rating:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+
+.rating-star,
+.rating:hover .rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 36px;
+    height: 36px;
+    background: url('../img/star.png') 0 -36px;
+}

@@ -30,6 +30,7 @@ $(document).ready(function () {
 
 
                 createCommentForm(token, imageId);
+                createRatingForm(token, imageId);
 
 
                 
@@ -62,6 +63,24 @@ function createCommentForm(token, imageId) {
         dataType: 'json',
         data: {
             token: token, 
+            postId: imageId
+        }
+    });
+}
+
+function createRatingForm(token, imageId) {
+    $("#ratingForm").ajaxForm({
+        success: function (data) {
+            if (!showError(data)) {
+                window.location.reload();
+            }
+        },
+        error: function () {
+            alert("Couldn't send request...");
+        },
+        dataType: 'json',
+        data: {
+            token: token,
             postId: imageId
         }
     });

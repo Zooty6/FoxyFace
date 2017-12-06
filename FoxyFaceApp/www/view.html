@@ -78,9 +78,11 @@
         <ul>
             <li><a class="btn-floating waves-effect waves-light deep-orange darken-4" id="shareButton"><i
                     class="material-icons">share</i></a></li>
-            <li><a class="btn-floating waves-effect waves-light deep-orange darken-2 modal-trigger" id="rateButton" href="#rate"><i
+            <li><a class="btn-floating waves-effect waves-light deep-orange darken-2 modal-trigger" id="rateButton"
+                   href="#rate"><i
                     class="material-icons">rate_review</i></a></li>
-            <li><a class="btn-floating waves-effect waves-light deep-orange modal-trigger" id="commentButton" href="#comment"><i
+            <li><a class="btn-floating waves-effect waves-light deep-orange modal-trigger" id="commentButton"
+                   href="#comment"><i
                     class="material-icons">mode_edit</i></a></li>
         </ul>
     </div>
@@ -94,12 +96,12 @@
                 <h4>Comment</h4>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="textarea1" class="materialize-textarea" name="text"></textarea>
-                        <label for="textarea1">Textarea</label>
+                        <textarea id="textarea" class="materialize-textarea" name="text"></textarea>
+                        <label for="textarea">Textarea</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="modal-action modal-close btn waves-effect waves-light deep-orange" type="submit" name="comment">Comment
+                    <button class="modal-action modal-close btn waves-effect waves-light deep-orange" type="submit">comment
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
@@ -108,17 +110,50 @@
     </div>
 
 
-    <script type="text/javascript" src="cordova.js"></script>
+    <div id="rate" class="modal">
+        <form id="ratingForm" action="http://localhost:5000/api/rating" method="post">
+            <div class="modal-content">
+                <h4>Rate</h4>
+                <div class="center-align">
+                    <span class="rating">
+                        <input type="radio" class="rating-input" id="rating-5" name="rating" value="5">
+                        <label for="rating-5" class="rating-star"></label>
+                        
+                        <input type="radio" class="rating-input" id="rating-4" name="rating" value="4">
+                        <label for="rating-4" class="rating-star"></label>
+                        
+                        <input type="radio" class="rating-input" id="rating-3" name="rating" value="3">
+                        <label for="rating-3" class="rating-star"></label>
+                        
+                        <input type="radio" class="rating-input" id="rating-2" name="rating" value="2">
+                        <label for="rating-2" class="rating-star"></label>
+                        
+                        <input type="radio" class="rating-input" id="rating-1" name="rating" value="1">
+                        <label for="rating-1" class="rating-star"></label>
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-action modal-close btn waves-effect waves-light deep-orange" type="submit">rate
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <!-- Jquery -->
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.form.min.js"></script>
-    <script type="text/javascript" src="js/jquery.simplePagination.js"></script>
 
-    <!-- Materialize stuff -->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
 
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/view.js"></script>
+<!-- Jquery -->
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.form.min.js"></script>
+<script type="text/javascript" src="js/jquery.simplePagination.js"></script>
+
+<!-- Materialize stuff -->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/view.js"></script>
 </body>
 </html>
