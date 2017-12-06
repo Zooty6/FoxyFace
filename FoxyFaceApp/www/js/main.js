@@ -6,6 +6,7 @@ $(document).ready(function () {
 function setupMaterialize() {
     $('.sidenav').sidenav();
     $('.materialboxed').materialbox();
+    $('.collapsible').collapsible();
 }
 
 function setupNav() {

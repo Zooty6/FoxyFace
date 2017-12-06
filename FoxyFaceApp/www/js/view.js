@@ -30,13 +30,20 @@ $(document).ready(function () {
                 var title = card.find(".card-title");
                 title.text(data.title);
 
-
                 var author = card.find(".card-author");
                 author.text(data.user.username);
                 
                 var description = card.find(".card-description");
                 description.text(data.description);
                 
+                
+                
+                
+                
+                var comments = $("#comments");
+                for (var commentIndex in data.comments) {
+                    comments.append(createComment(data.comments[commentIndex]));   
+                }
             }
         },
         error: function () {
@@ -45,3 +52,15 @@ $(document).ready(function () {
         dataType: "json"
     });
 });
+
+
+function createComment(comment) {
+    return  '<div class="card">' +
+                '<div class="card-content">' +
+                '<span class="card-title">' + comment.user.value.username + '</span>' +
+                '<p>' +
+                    comment.text +
+                '</p>' +
+                '</div>' +
+            '</div>'
+}
