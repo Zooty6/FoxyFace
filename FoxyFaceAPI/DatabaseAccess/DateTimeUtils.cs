@@ -28,9 +28,7 @@ namespace DatabaseAccess
                     }
                     catch (Exception)
                     {
-                        Console.WriteLine("Couldn't find proper format for datetime: " + datetime);
-
-                        throw;   
+                        throw new ArgumentException("Couldn't find proper format for datetime: " + datetime);
                     }
                 }
             }
