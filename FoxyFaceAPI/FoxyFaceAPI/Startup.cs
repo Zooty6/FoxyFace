@@ -37,7 +37,10 @@ namespace FoxyFaceAPI
             }
 
             app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:8000"));
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             
             
 

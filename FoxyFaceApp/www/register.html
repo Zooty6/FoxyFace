@@ -11,7 +11,7 @@
             * Enable inline JS: add 'unsafe-inline' to default-src
     -->
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self' data: gap: https://ssl.gstatic.com http://localhost:5000 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+          content="default-src 'self' data: gap: https://ssl.gstatic.com https://foxyfaceapi.azurewebsites.net 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport"
@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col s12">
                 <div class="card deep-orange lighten-4">
-                    <form id="registerForm" action="http://localhost:5000/api/auth/register" method="post">
+                    <form id="registerForm" action="https://foxyfaceapi.azurewebsites.net/api/auth/register" method="post">
                         <div class="card-content deep-orange-text text-darken-4">
                             <span class="card-title">Register</span>
                             <div class="row">

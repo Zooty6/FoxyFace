@@ -14,7 +14,7 @@ $(document).ready(function () {
     }
 
     $.ajax({
-        url: "http://localhost:5000/api/post",
+        url: "https://foxyfaceapi.azurewebsites.net/api/post",
         data: {
             postId: imageId,
             token: token
@@ -27,7 +27,7 @@ $(document).ready(function () {
                 createComments(data);
                 createRatings(data);
                 
-                createFabs();
+                createFabs(data);
 
                 createCommentForm(token, imageId);
                 createRatingForm(token, imageId);
@@ -40,9 +40,29 @@ $(document).ready(function () {
     });
 });
 
-function createFabs() {
+function createFabs(data) {
     $("#shareButton").click(function () {
-        // todo - add share button
+
+        // this is the complete list of currently supported params you can pass to the plugin (all optional)
+        var options = {
+            message: data.title, // not supported on some apps (Facebook, Instagram)
+            subject: data.title, // fi. for email
+            files:[], // an array of filenames either locally or remotely
+            url: window.location,
+            chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+        };
+
+        var onSuccess = function(result) {
+            console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+            console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+        };
+
+        var onError = function(msg) {
+            M.toast({html: "Sharing failed: " + msg});
+        };
+
+        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+        
     });
 }
 
