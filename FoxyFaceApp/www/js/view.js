@@ -29,7 +29,6 @@ $(document).ready(function () {
                 
                 createFabs();
 
-
                 createCommentForm(token, imageId);
                 createRatingForm(token, imageId);
             }
@@ -121,7 +120,7 @@ function createImage(data) {
     // calculate average
     var avgStars = totalStars / data.ratings.length;
     // generate the stars text and append that to the action div
-    action.html(calculateStars(avgStars));
+    action.html(calculateStars(Math.floor(avgStars)));
 }
 
 function createComments(data) {
