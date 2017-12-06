@@ -7,6 +7,7 @@ function createLoginForm() {
     $("#loginForm").ajaxForm({
         success: function (data) {
             if (!showError(data)) {
+                // sets the cookie we received
                 var storage = window.localStorage;
                 storage.setItem("token", data.token);
                 window.location = "index.html";

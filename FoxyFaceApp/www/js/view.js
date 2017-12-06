@@ -6,7 +6,7 @@ $(document).ready(function () {
         window.location = "index.html";
     }
 
-    // fetch image
+    // get image id from url or redirect to index.html if there isn't one
     var currentUrl = new URL(window.location);
     var imageId = currentUrl.searchParams.get("id");
     if (imageId === null) {
@@ -21,7 +21,8 @@ $(document).ready(function () {
         },
         success: function (data) {
             if (!showError(data)) {
-
+                
+                // setup everything once we received the data of the post
                 createImage(data);
                 createComments(data);
                 createRatings(data);
@@ -31,9 +32,6 @@ $(document).ready(function () {
 
                 createCommentForm(token, imageId);
                 createRatingForm(token, imageId);
-
-
-                
             }
         },
         error: function () {
@@ -45,15 +43,15 @@ $(document).ready(function () {
 
 function createFabs() {
     $("#shareButton").click(function () {
-
+        // todo - add share button
     });
-    
 }
 
 function createCommentForm(token, imageId) {    
     $("#commentForm").ajaxForm({
         success: function (data) {
             if (!showError(data)) {
+                // after weve posted a comment, reload
                 window.location.reload();
             }
         },
@@ -72,6 +70,7 @@ function createRatingForm(token, imageId) {
     $("#ratingForm").ajaxForm({
         success: function (data) {
             if (!showError(data)) {
+                // after weve posted a rating, reload
                 window.location.reload();
             }
         },
@@ -87,47 +86,64 @@ function createRatingForm(token, imageId) {
 }
 
 function createImage(data) {
+    // gets the view card div
     var card = $("#viewCard");
 
+    // finds the image
     var image = card.find("img");
+    // sets the image attributes accordingly
     image.attr("src", data.path);
     image.attr("alt", data.title);
 
+    // finds the card title div
     var title = card.find(".card-title");
+    // sets the title
     title.text(data.title);
 
+    // gets the card author div
     var author = card.find(".card-author");
+    // sets the author
     author.text(data.user.username);
 
+    // gets the card description div
     var description = card.find(".card-description");
+    // sets the description
     description.text(data.description);
 
-
+    // gets the card action div
     var action = $(".card-action");
+    // count all stars of every rating
     var totalStars = 0;
     for (var ratingsIndex in data.ratings) {
         var rating = data.ratings[ratingsIndex];
         totalStars += rating.stars;
     }
+    // calculate average
     var avgStars = totalStars / data.ratings.length;
+    // generate the stars text and append that to the action div
     action.html(calculateStars(avgStars));
 }
 
 function createComments(data) {
+    // get the comments div
     var comments = $("#comments");
+    // and append each comment to it
     for (var commentIndex in data.comments) {
         comments.append(createComment(data.comments[commentIndex]));
     }
 }
 
 function createRatings(data) {
+    // get the ratings div
     var ratings = $("#ratings");
+    // and append each comment to it
     for (var ratingsIndex in data.ratings) {
         ratings.append(createRating(data.ratings[ratingsIndex]));
     }
 }
 
 function createComment(comment) {
+    // returns a materialize card with the comment as content
     return  '<div class="card">' +
                 '<div class="card-content">' +
                 '<span class="card-title">' + comment.user.value.username + '</span>' +
@@ -139,31 +155,26 @@ function createComment(comment) {
 }
 
 function createRating(rating) {
-    var stars = "";
-    for (var i = 0; i < rating.stars; i++) {
-        stars += "<i class='material-icons'>star</i>";
-    }
-    for (i = 0; i < 5 - rating.stars; i++) {
-        stars += "<i class='material-icons'>star_border</i>";
-    }
     
-    
-    
+    // returns a materialize card with rating as content 
     return  '<div class="card">' +
         '<div class="card-content">' +
         '<span class="card-title">' + rating.user.value.username + '</span>' +
             '<p>' +
-                stars +
+                calculateStars(rating.stars) +
             '</p>' +
         '</div>' +
         '</div>'
 }
 
 function calculateStars(stars) {
+    // generates a string for the rating
+    // first add n amount of <stars> as star icons
     var ret = "";
     for (var i = 0; i < stars; i++) {
         ret += "<i class='material-icons'>star</i>";
     }
+    // and then fill it up to 5 total with outlined stars
     for (i = 0; i < 5 - stars; i++) {
         ret += "<i class='material-icons'>star_border</i>";
     }

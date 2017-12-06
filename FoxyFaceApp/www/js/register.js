@@ -7,6 +7,7 @@ function createRegisterForm() {
     $("#registerForm").ajaxForm({
         success: function (data) {
             if (!showError(data)) {
+                // set the token we received from the response
                 var storage = window.localStorage;
                 storage.setItem("token", data.token);
                 window.location = "browse.html";

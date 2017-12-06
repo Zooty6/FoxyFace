@@ -1,4 +1,4 @@
-/* materialize css */
+/* load material icons: https://material.io/icons/ */ 
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
@@ -22,69 +22,69 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Text Area */
 
-/* label color */
+
+
+/* change all green underlines in input fields to orange */
+
 .input-field label {
     color: #ff5722 !important;
 }
 
-/* label focus color */
 .input-field input[type=text]:focus + label {
     color: #ff5722 !important;;
 }
-
-/* label underline color */
 .input-field input[type=text] {
     border-bottom: 1px solid #ff5722 !important;
 }
 
-/* label underline focus color */
 .input-field input[type=text]:focus {
     border-bottom: 1px solid #ff5722 !important;
     box-shadow: 0 1px 0 0 #ff5722 !important;
 }
-
-/* label underline color */
 .input-field input[type=email] {
     border-bottom: 1px solid #ff5722 !important;
 }
 
-/* label underline focus color */
 .input-field input[type=email]:focus {
     border-bottom: 1px solid #ff5722 !important;
     box-shadow: 0 1px 0 0 #ff5722 !important;
 }
-
-/* label underline color */
 .input-field input[type=password] {
     border-bottom: 1px solid #ff5722 !important;
 }
 
-/* label underline focus color */
 .input-field input[type=password]:focus {
     border-bottom: 1px solid #ff5722 !important;
     box-shadow: 0 1px 0 0 #ff5722 !important;
 }
-
-/* icon prefix focus color */
 .input-field .prefix.active {
     color: #ff5722 !important;;
 }
 
-
 textarea.materialize-textarea:not([readonly]) {
     border-bottom: 1px solid #ff5722 !important;
 }
-
 textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #ff5722 !important;
     box-shadow: 0 1px 0 0 #ff5722 !important;
 }
 
+
+
+
+/* set banner size */
+
 .banner {
     width: 100%;
 }
+
+
+
+
+
+
+/* helpers */
 
 .clear {
     float: none;
@@ -94,8 +94,11 @@ textarea.materialize-textarea:focus:not([readonly]) {
     visibility: hidden;
 }
 
+
+
 /* gallery */
 
+/* its a flex container */
 #galleryContainer {
     display: flex;
     flex-direction: row;
@@ -113,30 +116,35 @@ textarea.materialize-textarea:focus:not([readonly]) {
     text-align: center;
 }
 
+/* change colors of links to orange */
 .galleryItem a {
     color: #ff5722;
 }
 
+/* set a fixed size */
 .galleryItem {
     width: 137px !important;
 }
 
+/* decrease padding */
 .galleryItem .card-content {
     padding: 4px !important;
 }
 
+/* undo materialize css */
 .galleryItem .card-title {
     font-size: inherit !important;
     font-weight: inherit !important;
 }
 
+/* decrease padding */
 .galleryItem .card-reveal {
     padding: 4px !important;
 }
 
 
 
-    /* pagination fix */
+/* pagination fix */
 
 .pagination li span {
     color: #444;
@@ -146,10 +154,12 @@ textarea.materialize-textarea:focus:not([readonly]) {
     line-height: 30px;
 }
 
+/* change color to orange */
 .pagination li.active {
     background-color: #ff5722;
 }
 
+/* change font color of active element */
 .pagination li.active span {
     color: white !important;
 }
@@ -163,7 +173,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 
 
-/* star rating */
+/* star rating: https://www.everythingfrontend.com/posts/star-rating-input-pure-css.html */
 
 .rating {
     overflow: hidden;

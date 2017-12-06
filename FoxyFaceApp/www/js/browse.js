@@ -6,9 +6,10 @@ $(document).ready(function () {
         window.location = "index.html";
     }
 
-    // fetch images
+    // fetch n amount of images
     var amountOnPage = 10;
     
+    // get current page number
     var currentUrl = new URL(window.location);
     var currentPage = currentUrl.searchParams.get("page");
     if (currentPage === null) {
@@ -26,19 +27,22 @@ $(document).ready(function () {
         },
         success: function (data) {
             if (!showError(data)) {
+                // get gallery div
                 var gallery = $("#galleryContainer");
+                // and append images to it
                 for (var index in data.posts) {
                     gallery.append(createImage(data.posts[index]));
                 }
 
+                // create pagination
                 $(".pagination").pagination({
                     items: data.totalPosts,
                     itemsOnPage: amountOnPage,
                     currentPage: currentPage,
-                    prevText:"<i class='material-icons'>chevron_left</i>",
-                    nextText:"<i class='material-icons'>chevron_right</i>",
+                    prevText:"<i class='material-icons'>chevron_left</i>", // left arrow icon
+                    nextText:"<i class='material-icons'>chevron_right</i>", // right arrow icon
                     onPageClick: function (pageNumber, event) {
-                        window.location = "browse.html?page=" + pageNumber
+                        window.location = "browse.html?page=" + pageNumber // add a onclick listener to page numbers which redirect us to the proper page
                     }
                 });
             }
@@ -48,11 +52,11 @@ $(document).ready(function () {
         },
         dataType: "json"
     });
-
 });
 
 
 function createImage(post) {
+    // returns a materialize card
     return  '<div class="card galleryItem hoverable">' +
                 '<a href="view.html?id=' + post.id + '">' +
                     '<div class="card-image waves-effect waves-block waves-light">' +
