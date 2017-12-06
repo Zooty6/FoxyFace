@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace DatabaseAccess
 {
@@ -13,8 +14,17 @@ namespace DatabaseAccess
             }
             catch (Exception)
             {
-                return DateTime.ParseExact((string) datetime, "dd/MM/yyyy HH:mm:ss",
-                    System.Globalization.CultureInfo.InvariantCulture);
+                try
+                {
+                    return DateTime.ParseExact((string) datetime, "dd/MM/yyyy HH:mm:ss",
+                        System.Globalization.CultureInfo.InvariantCulture);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Couldn't find proper format for datetime: " + datetime);
+
+                    throw e;
+                }
             }
         }
     }
