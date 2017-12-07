@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using DatabaseAccess;
 using DatabaseAccess.Model;
@@ -75,6 +76,8 @@ namespace FoxyFaceAPI.Controllers
                     error = ErrorObjects.ParametersAreNotValid
                 });
             }
+            title = WebUtility.HtmlEncode(title);
+            description = WebUtility.HtmlEncode(description);
             Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
             if (session == null)
             {
