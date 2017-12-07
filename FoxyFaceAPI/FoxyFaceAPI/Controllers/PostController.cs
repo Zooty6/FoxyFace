@@ -66,9 +66,9 @@ namespace FoxyFaceAPI.Controllers
         }
         
         [HttpPost]
-        public async Task<JsonResult> Post(string title, string description, IFormFile file, string token)
+        public async Task<JsonResult> Post(string title, string description, IFormFile file, string cameraBase64, string token)
         {
-            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(token) || file == null)
+            if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(token) || (file == null && string.IsNullOrEmpty(cameraBase64)))
             {
                 return Json(new
                 {
@@ -86,16 +86,26 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
 
-            Console.WriteLine("Uploading file: " + file.FileName);
-            
+
+            string filename;
             MemoryStream tempMemoryStream = new MemoryStream();
-            file.CopyTo(tempMemoryStream);
+            if (file != null)
+            {
+                file.CopyTo(tempMemoryStream);
+                filename = file.FileName;
+            }
+            else
+            {
+                byte[] cameraBytes = Convert.FromBase64String(cameraBase64);
+                tempMemoryStream.Write(cameraBytes, 0, cameraBytes.Length);
+                filename = "camera";
+            }
             tempMemoryStream.Seek(0, SeekOrigin.Begin);
             
             string blobPath;
             do
             {
-                blobPath = session.User.Value.Username + "/" + random.Next() + "_" + file.FileName;
+                blobPath = session.User.Value.Username + "/" + random.Next() + "_" + filename;
             } while (CloudStorage.Instance.FileExists(blobPath));
 
             try

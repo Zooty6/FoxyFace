@@ -14,12 +14,12 @@ function createCameraButton() {
     // adds an event listener to the camera button
     $("#cameraButton").click(function () {
         // if we clicked it, then try to get a picture from the camera
-        navigator.camera.getPicture(function (file) {
+        navigator.camera.getPicture(function (base64) {
             // afterwards set the file path of the image to the file input
-            $(".fileButton").each(function () {
-               $(this).val(file); 
-            });
-        },function (message) {  }, {});
+            $("#cameraBase64").val(base64);
+        },function (message) {  }, {
+            destinationType: 0 // return base64 picture
+        });
     });
 }
 

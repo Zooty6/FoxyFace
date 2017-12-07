@@ -15,15 +15,23 @@ namespace FoxyFaceAPI.Controllers
     {
         // POST api/auth/regsiter
         [HttpPost("register")]
-        public JsonResult Register(string username, string password, string email)
+        public JsonResult Register(string username, string password, string email, string passwordRetype)
         {
             Console.WriteLine(username + "/" + password + "/" + email);
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(passwordRetype))
             {
                 return Json(new
                 {
                     success = false,
                     error = ErrorObjects.ParametersAreNotValid
+                });
+            }
+            if (password != passwordRetype)
+            {
+                return Json(new
+                {
+                    success = false,
+                    error = ErrorObjects.PasswordsDontMatch
                 });
             }
             

@@ -12,6 +12,7 @@ namespace FoxyFaceAPI
         public static readonly ErrorObject UsernameAlreadyExists = new ErrorObject(101, "Username already exists");
         public static readonly ErrorObject EmailAlreadyExists = new ErrorObject(102, "Email already exists");
         public static readonly ErrorObject WrongUserName = new ErrorObject(103, "Username can't contain special characters");
+        public static readonly ErrorObject PasswordsDontMatch = new ErrorObject(104, "Passwords don't match");
         
         //login - 11x
         public static readonly ErrorObject LoginError = new ErrorObject(111, "Username or password is wrong");
