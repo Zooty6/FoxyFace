@@ -76,8 +76,6 @@ namespace FoxyFaceAPI.Controllers
                     error = ErrorObjects.ParametersAreNotValid
                 });
             }
-            title = WebUtility.HtmlEncode(title);
-            description = WebUtility.HtmlEncode(description);
             Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
             if (session == null)
             {
