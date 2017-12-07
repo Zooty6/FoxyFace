@@ -48,7 +48,7 @@ function createFabs(data) {
             message: data.title, // not supported on some apps (Facebook, Instagram)
             subject: data.title, // fi. for email
             files:[], // an array of filenames either locally or remotely
-            url: window.location,
+            url: data.path,
             chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
         };
 
@@ -61,8 +61,7 @@ function createFabs(data) {
             M.toast({html: "Sharing failed: " + msg});
         };
 
-        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
-        
+        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);        
     });
 }
 
