@@ -42,6 +42,23 @@ namespace DatabaseAccess
 
         public DataTable ExecuteReader(string qry, params MySqlParameter[] parameterCollection)
         {
+            try
+            {
+                return ExecuteReaderPrivate(qry, parameterCollection);
+            }
+            catch(Exception e)
+            {
+                if (IsOpen())
+                {
+                    throw e;
+                }
+                Open();
+                return ExecuteReader(qry, parameterCollection);
+            }
+        }
+        
+        private DataTable ExecuteReaderPrivate(string qry, params MySqlParameter[] parameterCollection)
+        {
             using (MySqlCommand command = connection.CreateCommand())
             {
                 command.CommandText = qry;
@@ -68,13 +85,30 @@ namespace DatabaseAccess
                 return ret;
             }
         }
+
+        public long ExecuteNonQuery(string qry, params MySqlParameter[] parameterCollection)
+        {
+            try
+            {
+                return ExecuteNonQueryPrivate(qry, parameterCollection);
+            }
+            catch (Exception e)
+            {
+                if (IsOpen())
+                {
+                    throw e;
+                }
+                Open();
+                return ExecuteNonQuery(qry, parameterCollection);
+            }
+        }
         
         /// <summary>
         /// Executes an SQL statement with the specified binds against the Connection.
         /// </summary>
         /// <param name="qry">The SQL Statement to be executed.</param>
         /// <param name="parameterCollection">The list of bind values to use for execution.</param>
-        public long ExecuteNonQuery(string qry, params MySqlParameter[] parameterCollection)
+        private long ExecuteNonQueryPrivate(string qry, params MySqlParameter[] parameterCollection)
         {
             using (MySqlCommand command = connection.CreateCommand())
             {
