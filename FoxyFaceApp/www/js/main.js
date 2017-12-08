@@ -5,7 +5,9 @@ $(document).ready(function () {
 
 function setupMaterialize() {
     // setup sidenav button
-    $('.sidenav').sidenav();
+    $('.sidenav').sidenav({
+        draggable: false
+    });
     // setup materialbox
     $('.materialboxed').materialbox();
     // setup collapsibles
