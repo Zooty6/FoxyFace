@@ -17,7 +17,7 @@ $(document).ready(function () {
     }
     
     $.ajax({
-        url: "https://foxyfaceapi.azurewebsites.net/api/browse",
+        url: "https://foxyface.owl.sh/api/browse",
         data: {
             offset: amountOnPage * (currentPage-1),
             amount: amountOnPage,

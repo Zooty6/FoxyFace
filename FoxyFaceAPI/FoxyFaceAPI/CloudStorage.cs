@@ -1,17 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FoxyFaceAPI
 {
     public class CloudStorage
     {
-        private CloudBlobContainer container;
-
         private static CloudStorage instance;
+
+        private DirectoryInfo storagePath;
+        
         public static CloudStorage Instance
         {
             get
@@ -23,35 +21,42 @@ namespace FoxyFaceAPI
             }
         }
 
-        public static void Initialize(string accountName, string key)
+        public static void Initialize(string path = "wwwroot/storage")
         {
-            instance = new CloudStorage(accountName, key);
+            instance = new CloudStorage(path);
         }
 
-        private CloudStorage(string accountName, string key)
+        private CloudStorage(string path)
         {
-            CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(accountName, key), true);
-            
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-            // Get a reference to a container named "mycontainer."
-            container = blobClient.GetContainerReference("foxyface-images");
+            this.storagePath = new DirectoryInfo(path);
+            if (!storagePath.Exists)
+            {
+                Directory.CreateDirectory(storagePath.FullName);
+            }
         }
 
         public async Task<Uri> UploadFile(String name, Stream stream)
         {
-            // Get a reference to a blob named "myblob".
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(name);
+            var file = new FileInfo(Path.Combine(storagePath.FullName, name));
+            if (file.Directory != null && !file.Directory.Exists)
+            {
+                file.Directory.Create();
+            }
             
-            await blockBlob.UploadFromStreamAsync(stream);
+            using (var fileStream = file.OpenWrite())
+            {
+                stream.Seek(0, SeekOrigin.Begin);
+                stream.CopyTo(fileStream);
+            }
 
-            return blockBlob.Uri;
+            return new Uri("https://foxyface.owl.sh/" + name);
         }
 
         public bool FileExists(String name)
         {
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(name);
-            return blockBlob.ExistsAsync().Result;
+            var file = new FileInfo(Path.Combine(storagePath.FullName, name));
+
+            return file.Exists;
         }
     }
 }

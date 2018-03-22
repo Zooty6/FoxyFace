@@ -14,7 +14,7 @@ $(document).ready(function () {
     }
 
     $.ajax({
-        url: "https://foxyfaceapi.azurewebsites.net/api/post",
+        url: "https://foxyface.owl.sh/api/post",
         data: {
             postId: imageId,
             token: token

@@ -21,6 +21,7 @@ namespace FoxyFaceAPI
                 Console.WriteLine("Couldn't find data/dbConnectionString.txt, aborting");
                 return;
             }
+            CloudStorage.Initialize();
             
             FoxyFaceDbManager.Initialize(File.ReadAllText(connectionFile.FullName));
             BuildWebHost(args).Run();
