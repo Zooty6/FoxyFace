@@ -24,8 +24,8 @@ namespace DatabaseAccess.Model
         }
 
         internal Rating(int id, int postId, int userId, int stars)
-            : this(id, new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
-                new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), stars)
+            : this(id, new Lazy<Post>(() => FoxyFaceDbManager.GetNewConnection.PostRepository.FindById(postId)),
+                new Lazy<User>(() => FoxyFaceDbManager.GetNewConnection.UserRepository.FindById(userId)), stars)
         {
         }
 

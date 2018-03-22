@@ -18,7 +18,7 @@ namespace FoxyFaceAPI.Controllers
                     error = ErrorObjects.ParametersAreNotValid
                 });
             }
-            Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
+            Session session = FoxyFaceDbManager.GetNewConnection.SessionRepository.FindByToken(token);
             if (session == null)
             {
                 return Json(new
@@ -28,7 +28,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
 
-            if (FoxyFaceDbManager.Instance.PostRepository.FindById(postId) == null)
+            if (FoxyFaceDbManager.GetNewConnection.PostRepository.FindById(postId) == null)
             {
                 return Json(new
                 {
@@ -36,7 +36,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
 
-            int ratingId = FoxyFaceDbManager.Instance.RatingRepository.Create(postId, session.User.Value.Id, rating).Id;
+            int ratingId = FoxyFaceDbManager.GetNewConnection.RatingRepository.Create(postId, session.User.Value.Id, rating).Id;
             return Json(new
             {
                 ratingId

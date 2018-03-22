@@ -35,7 +35,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            if (FoxyFaceDbManager.Instance.UserRepository.FindByName(username) != null)
+            if (FoxyFaceDbManager.GetNewConnection.UserRepository.FindByName(username) != null)
             {
                 return Json(new
                 {
@@ -43,7 +43,7 @@ namespace FoxyFaceAPI.Controllers
                     error = ErrorObjects.UsernameAlreadyExists
                 });
             }
-            if (FoxyFaceDbManager.Instance.UserRepository.FindByEmail(email) != null)
+            if (FoxyFaceDbManager.GetNewConnection.UserRepository.FindByEmail(email) != null)
             {
                 return Json(new
                 {
@@ -60,7 +60,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            FoxyFaceDbManager.Instance.UserRepository.Create(username, password, email);
+            FoxyFaceDbManager.GetNewConnection.UserRepository.Create(username, password, email);
             return Login(username, password);
         }
         
@@ -81,7 +81,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
 
-            User user = FoxyFaceDbManager.Instance.UserRepository.FindByName(username);
+            User user = FoxyFaceDbManager.GetNewConnection.UserRepository.FindByName(username);
             if (user == null)
             {
                 return Json(new
@@ -98,7 +98,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
 
-            Session session = FoxyFaceDbManager.Instance.SessionRepository.Create(user);
+            Session session = FoxyFaceDbManager.GetNewConnection.SessionRepository.Create(user);
             return Json(new
             {
                 token = session.Token
@@ -118,7 +118,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
+            Session session = FoxyFaceDbManager.GetNewConnection.SessionRepository.FindByToken(token);
             if (session == null)
             {
                 return Json(new
@@ -128,7 +128,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
 
-            FoxyFaceDbManager.Instance.SessionRepository.Delete(session);
+            FoxyFaceDbManager.GetNewConnection.SessionRepository.Delete(session);
             return Json(new
             {
                 success = true
@@ -147,7 +147,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
+            Session session = FoxyFaceDbManager.GetNewConnection.SessionRepository.FindByToken(token);
             if (session == null)
             {
                 return Json(new
@@ -166,7 +166,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            FoxyFaceDbManager.Instance.UserRepository.ChangePassword(session.User.Value, newPassword);
+            FoxyFaceDbManager.GetNewConnection.UserRepository.ChangePassword(session.User.Value, newPassword);
             return Json(new
             {
                 success = true

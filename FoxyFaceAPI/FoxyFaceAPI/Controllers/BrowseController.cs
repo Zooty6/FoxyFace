@@ -30,7 +30,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
+            Session session = FoxyFaceDbManager.GetNewConnection.SessionRepository.FindByToken(token);
             if (session == null)
             {
                 return Json(new
@@ -41,11 +41,11 @@ namespace FoxyFaceAPI.Controllers
             }
             
             
-            List<Post> posts = FoxyFaceDbManager.Instance.PostRepository.FindPosts(offset, amount, orderBy);
+            List<Post> posts = FoxyFaceDbManager.GetNewConnection.PostRepository.FindPosts(offset, amount, orderBy);
             return Json(new
             {
                 posts = posts,
-                totalPosts = FoxyFaceDbManager.Instance.PostRepository.GetTotalCountOfPosts()
+                totalPosts = FoxyFaceDbManager.GetNewConnection.PostRepository.GetTotalCountOfPosts()
             });
         }
     }

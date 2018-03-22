@@ -33,7 +33,7 @@ namespace FoxyFaceAPI.Controllers
                     error = ErrorObjects.ParametersAreNotValid
                 });
             }
-            Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
+            Session session = FoxyFaceDbManager.GetNewConnection.SessionRepository.FindByToken(token);
             if (session == null)
             {
                 return Json(new
@@ -43,7 +43,7 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
             
-            Post post = FoxyFaceDbManager.Instance.PostRepository.FindById(postId);
+            Post post = FoxyFaceDbManager.GetNewConnection.PostRepository.FindById(postId);
             if (post == null)
             {
                 return Json(new
@@ -52,8 +52,8 @@ namespace FoxyFaceAPI.Controllers
                 });
             }
 
-            List<Rating> listOfRatings = FoxyFaceDbManager.Instance.RatingRepository.FindByPostId(postId);
-            List<Comment> listOfComments = FoxyFaceDbManager.Instance.CommentRepository.FindByPostId(postId);
+            List<Rating> listOfRatings = FoxyFaceDbManager.GetNewConnection.RatingRepository.FindByPostId(postId);
+            List<Comment> listOfComments = FoxyFaceDbManager.GetNewConnection.CommentRepository.FindByPostId(postId);
             return Json(new
             {
                 title = post.Title,
@@ -76,7 +76,7 @@ namespace FoxyFaceAPI.Controllers
                     error = ErrorObjects.ParametersAreNotValid
                 });
             }
-            Session session = FoxyFaceDbManager.Instance.SessionRepository.FindByToken(token);
+            Session session = FoxyFaceDbManager.GetNewConnection.SessionRepository.FindByToken(token);
             if (session == null)
             {
                 return Json(new
@@ -136,7 +136,7 @@ namespace FoxyFaceAPI.Controllers
             Uri uri = CloudStorage.Instance.UploadFile(blobPath, tempMemoryStream).Result;
             
 
-            Post post = FoxyFaceDbManager.Instance.PostRepository.Create(session.User.Value, title, description, uri.ToString());
+            Post post = FoxyFaceDbManager.GetNewConnection.PostRepository.Create(session.User.Value, title, description, uri.ToString());
             return Json(new
             {
                 postId = post.Id

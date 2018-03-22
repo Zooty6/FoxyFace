@@ -12,16 +12,18 @@ namespace DatabaseAccess
         public PostRepository PostRepository { get; }
         public SessionRepository SessionRepository { get; set; }
 
+        private static string connectionString;
+        
         private static FoxyFaceDbManager instance;
 
-        public static FoxyFaceDbManager Instance
+        public static FoxyFaceDbManager GetNewConnection
         {
             get
             {
-                if (instance == null)
+                if (string.IsNullOrEmpty(connectionString))
                     throw new ArgumentException("Call FoxyFaceDbManager#Initialize first");
 
-                return instance;
+                return new FoxyFaceDbManager(connectionString);
             }
         }
 
@@ -44,12 +46,12 @@ namespace DatabaseAccess
                 FoxyFaceDb.Dispose();
         }
 
-        public static FoxyFaceDbManager Initialize(string connectionString)
+        public static void Initialize(string conString)
         {
-            if (instance != null)
+            if (!string.IsNullOrEmpty(connectionString))
                 throw new ArgumentException("Instance was already created");
 
-            return instance = new FoxyFaceDbManager(connectionString);
+            FoxyFaceDbManager.connectionString = conString;
         }
     }
 }

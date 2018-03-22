@@ -12,8 +12,8 @@ namespace DatabaseAccess.Model
         public DateTime Date { get; }
 
         internal Comment(int id, int postId, int userId, string text, DateTime date = new DateTime())
-            : this(id, new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
-                new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), text, date)
+            : this(id, new Lazy<Post>(() => FoxyFaceDbManager.GetNewConnection.PostRepository.FindById(postId)),
+                new Lazy<User>(() => FoxyFaceDbManager.GetNewConnection.UserRepository.FindById(userId)), text, date)
         {
         }
 
@@ -26,8 +26,8 @@ namespace DatabaseAccess.Model
         }
         
         internal Comment( int postId, int userId, string text, DateTime date = new DateTime())
-            : this(new Lazy<Post>(() => FoxyFaceDbManager.Instance.PostRepository.FindById(postId)),
-                new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId)), text, date)
+            : this(new Lazy<Post>(() => FoxyFaceDbManager.GetNewConnection.PostRepository.FindById(postId)),
+                new Lazy<User>(() => FoxyFaceDbManager.GetNewConnection.UserRepository.FindById(userId)), text, date)
         {
         }
 

@@ -16,14 +16,14 @@ namespace DatabaseAccess.Model
 
         public Session(int userId)
         {
-            User = new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId));
+            User = new Lazy<User>(() => FoxyFaceDbManager.GetNewConnection.UserRepository.FindById(userId));
             Token = generateToken();
         }
 
         public Session(int id, int userId, string token)
         {
             Id = id;
-            User = new Lazy<User>(() => FoxyFaceDbManager.Instance.UserRepository.FindById(userId));
+            User = new Lazy<User>(() => FoxyFaceDbManager.GetNewConnection.UserRepository.FindById(userId));
             Token = token ?? throw new ArgumentNullException(nameof(token));
         }
 

@@ -26,7 +26,8 @@ namespace DatabaseAccessTests
             string connectionString = File.ReadAllText(connectionFile.FullName);
 
             Console.WriteLine("Initializing database");
-            dbManager = FoxyFaceDbManager.Initialize(connectionString);
+            FoxyFaceDbManager.Initialize(connectionString);
+            dbManager = FoxyFaceDbManager.GetNewConnection;
 
             Console.WriteLine("Running teardown.sql script");
             FileInfo info = new FileInfo("data/teardown.sql");
