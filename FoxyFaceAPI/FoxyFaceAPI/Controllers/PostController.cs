@@ -98,7 +98,7 @@ namespace FoxyFaceAPI.Controllers
             {
                 byte[] cameraBytes = Convert.FromBase64String(cameraBase64);
                 tempMemoryStream.Write(cameraBytes, 0, cameraBytes.Length);
-                filename = "camera";
+                filename = "camera.png";
             }
             tempMemoryStream.Seek(0, SeekOrigin.Begin);
             

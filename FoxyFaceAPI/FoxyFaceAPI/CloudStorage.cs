@@ -49,7 +49,7 @@ namespace FoxyFaceAPI
                 stream.CopyTo(fileStream);
             }
 
-            return new Uri("https://foxyface.owl.sh/" + name);
+            return new Uri("https://foxyface.owl.sh/storage/" + name);
         }
 
         public bool FileExists(String name)
