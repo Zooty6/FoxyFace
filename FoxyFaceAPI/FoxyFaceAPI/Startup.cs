@@ -42,7 +42,7 @@ namespace FoxyFaceAPI
                     .AllowAnyHeader()
                     .AllowCredentials());
             
-            
+            app.UseStaticFiles();
 
             app.UseMvc();
         }
